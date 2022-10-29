@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0">
+    <!-- Link semantic-ui -->
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <!-- Add link to card.css -->
+    <link rel="stylesheet" href="./assets/css/ui.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css">
+    <!-- Add jquery -->
+    <link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+
+    <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
+    <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
+    <link rel="stylesheet" href="./assets/css/calendar.css">
+    <title>WATCH-THIS-NOW</title>
+</head>
+
+<body class="bg-light">
+    <!-- Add hero using semantic-ui -->
+    <div class="ui inverted vertical masthead center aligned segment" id="hero">
+        <div class="ui text container">
+            <a href="./index.html">
+                <i class="film large icon"></i>
+                <h1 class="ui inverted header">
+                    WATCH-THIS-NOW
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class="ui grid">
+        <div class="sixteen wide mobile eight wide tablet sixteen wide
+                computer column">
+            <div class="column center aligned">
+                <h2>My Calendar for Movie Watching</h2>
+                <div class="ui raised very padded container segment
+                        now-playing-cards" id="now-playing-cards">
+                    <div class="ui grid">
+                        <div id="my-calendar" class="ui doubling cards"></div>
+                        <!-- Add a calendar using semantic-ui -->
+                        <div class="ui container">
+                            <div class="ui menu">
+                                <a class="item cal-view" data-view="dayGridMonth">Month</a>
+                                <a class="item cal-view" data-view="dayGridWeek">Week</a>
+                                <a class="item cal-view" data-view="dayGrid">Day</a>
+                                <a class="item cal-view" data-view="listWeek">List</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="ui container">
+                        <div class="ui grid">
+                            <div class="ui sixteen column">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="./assets/js/movie.js"></script>
+    <script src="./assets/js/fetch_api.js"></script>
+    <script src="./assets/js/ui-elements.js"></script>
+    <script src="./assets/js/calendar.js"></script>
+</body>
+
+</html>

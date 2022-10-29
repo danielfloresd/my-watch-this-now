@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> -->
+  <!-- Link bumla  --
+
+  <!-- Link semantic-ui -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+  <link rel="stylesheet" href="./assets/css/reset.css">
+  <!-- Add link to card.css -->
+  <link rel="stylesheet" href="./assets/css/ui.css">
+  <!-- Add jquery -->
+  <link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+  <title>WATCH-THIS-NOW</title>
+</head>
+
+<body class="">
+  <!-- Add hero using semantic-ui -->
+  <div class="ui inverted vertical masthead center aligned segment" id="hero">
+    <div class="ui text container">
+      <div class="ui text container">
+        <a href="./index.html">
+          <i class="film circular icon"></i>
+          <h1 class="ui inverted header">
+            WATCH-THIS-NOW
+          </h1>
+          <h2 style="color:azure">Find New Movies. Make Your Watch List</h2>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="ui text menu" id="menu-bar-top">
+    <div class="item right">
+      <a href="./now-playing.html" style="color: aliceblue;"  >Now Playing
+        <i class="video camera icon" alt="Now Playinh"></i>
+      </a>
+      <a href="./calendar.html" alt="My Calendar"  style="color: aliceblue;" >My Calendar
+        <i class="calendar icon"></i>
+      </a>
+    </div>
+  </div>
+  <div class="ui text menu" id="menu-bar">
+    <div class="item">
+      <div class="ui search">
+        <div class="ui icon input">
+          <label for="keyword">🍳</label>
+          <input class="prompt" id="keyword" type="text" placeholder="Search Movies...">
+        </div>
+        <button class="ui button circular" name="searchBtn" style="background-color:#d75788" title="Search" id="searchBtn" aria-labelledby="searchBtn">
+          <i class="search inverted link icon" alt="Search button image"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ui grid" id="ui-grid">
+    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+      <div class="column center aligned">
+        <h2>To Be watched</h2>
+        <div class="ui raised very padded container segment movie-cards" id="to-be-watched-cards">
+          <div class="ui grid">
+            <div id="to-be-watched" class="ui two doubling cards"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+      <div class="sixteen wide mobile eight wide tablet four wide computer column">
+        <div class="column center aligned">
+          <h2>Watching</h2>
+          <div class="ui raised very padded container segment movie-cards" id="watching-cards">
+            <div class="ui four doubling cards" id="watching">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sixteen wide mobile eight wide tablet four wide computer column">
+        <div class="column center aligned">
+          <h2>Watched</h2>
+          <div class="ui raised very padded container segment movie-cards" id="watched-cards">
+            <div class="ui four doubling cards" id="watched"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--added a footer-->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+      </p>
+    </div>
+  </footer>
+  <div class="ui modal" id="trailer-modal">
+    <i class="close icon" id="trailer-close"></i>
+    <div class="header" id="trailer-title">
+    </div>
+    <div class="image content">
+      <div class="ui medium image">
+        <iframe id="video-player" width="500" height="315" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay;clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="description" style="margin-left:250px" id="trailer-description">
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for movie details -->
+  <div class="ui large modal" id="movie-modal">
+    <i class="close icon" id="movie-modal-close"></i>
+    <div class="header" id="movie-modal-title">
+    </div>
+    <div class="sixteen wide mobile eight wide tablet eight wide computer center aligned column">
+      <!-- <div class="ui column"> -->
+      <!-- <div class="ui raised padded container segment"> -->
+      <div class="ui scrolling content">
+        <div id="movie-modal-description" class="ui doubling cards"></div>
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>
+
+
+  <!-- Modal for movie details -->
+  <div class="ui mini modal" id="schedule-modal">
+    <i class="close icon" id="schedule-modal-close"></i>
+    <div class="header" id="schedule-modal-title">
+    </div>
+    <!-- Add date selector -->
+    <!-- Add movie <img> -->
+    <div class="ui form">
+      <div class="field">
+        <label for="schedule-date">Date</label>
+        <input type="datetime-local" id="schedule-date" name="date">
+        </input>
+        <!-- Add time selector -->
+        <!-- // Add button to save schedule -->
+      </div>
+      <div class="ui">
+        <div class="ui  segment">
+          <img id="schedule-modal-img" class="ui image centered medium" src="" alt="movie poster">
+
+        </div>
+        <div class="ui container center aligned">
+          <button class="ui blue button" id="saveScheduleBtn">
+            <i class="calendar check link icon"></i>Add to Calendar
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Loader modal -->
+    <div class="ui basic modal" id="loader-modal">
+      <i class="close icon" id="loader-modal-close"></i>
+      <div class="header" id="loader-modal-title">
+      </div>
+      <!-- Add date selector -->
+      <!-- Add movie <img> -->
+      <div class="ui segment" style="min-height:500px" id="results-loader">
+        <div class="ui active dimmer">
+          <div class="ui indeterminate text loader"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal widow for search Results -->
+    <div class="ui fullscreen modal" id="resultsmodal">
+      <i class="close icon" id="results-close"></i>
+      <div class="header" id="results-title">
+        <h1>Search Results</h1>
+      </div>
+      <div class="sixteen wide mobile eight wide tablet eight wide computer center aligned column">
+        <!-- <div class="ui column"> -->
+        <!-- <div class="ui raised padded container segment"> -->
+        <div id="search-results" class="ui doubling cards"></div>
+      </div>
+      <!-- </div> -->
+    </div>
+    <!-- </div> -->
+  </div>
+  </main>
+  <!-- ✅ load jQuery ✅ -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- ✅ load jQuery UI ✅ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+    integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Add moment.js to format date and time -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/js/bulma.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.js"></script>
+  <script src="./assets/js/movie.js"></script>
+  <script src="./assets/js/ui-elements.js"></script>
+  <script src="./assets/js/ui.js"></script>
+  <script src="./assets/js/fetch_api.js"></script>
+</body>
+
+</html>

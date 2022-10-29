@@ -1,0 +1,163 @@
+// Create Movie Class
+class Movie {
+
+    constructor(id, title, plot, poster, ranking, trailer, state,providers,providersLogos,releaseDate) {
+        this.id = id;
+        this.title = title;
+        this.plot = plot;
+        this.poster = poster;
+        this.ranking = ranking;
+        this.trailer = trailer;
+        this.state = state;
+        this.providers = providers;
+        this.providersLogos = providersLogos;
+        this.releaseDate = releaseDate;
+    }
+
+
+    isToBeWatched() {
+        return this.state === "to-be-watched";
+    }
+
+    isWatched() {
+        return this.state === "watched";
+    }
+
+    isWatching() {
+        return this.state === "watching";
+    }
+
+    // Function to stringify the movie object
+    toString() {
+        return JSON.stringify(this);
+    }
+
+    // Return movie info link
+    link() {
+        // Return tmdb link
+        var l = "https://www.themoviedb.org/movie/" + this.id;
+        return l;
+    }
+
+    store(){
+        this.storeObj("movies");
+    }
+
+    archive() {
+        this.storeObj("archive");
+    }
+    // Fuction to save movie to storage
+    storeObj(table) {
+        // Get existing movies from storage
+        var movies = JSON.parse(localStorage.getItem(table));
+        // If no movies, create an array
+        if (!movies) {
+            movies = [];
+        }
+
+        // Check if the movie is in the array by comparing ids
+        var found = false;
+        for (var i = 0; i < movies.length; i++) {
+            if (movies[i].id === this.id) {
+                movies[i] = this;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            movies.push(this);
+        }
+
+        // Save movie to local storage
+        localStorage.setItem(table, JSON.stringify(movies));
+    }
+
+
+    remove(){
+        this.removeObj("movies");
+    }
+
+    removeArchive(){
+        this.removeObj("archive");
+    }
+
+    // Add remove function to remove the movie from local storage
+    removeObj(table) {
+        // Get existing movies from storage
+        var movies = JSON.parse(localStorage.getItem(table));
+        // If no movies, create an array
+        if (!movies) {
+            movies = [];
+        }
+        // Find movie in array and remove it
+        for (var i = 0; i < movies.length; i++) {
+            if (movies[i].id === this.id) {
+                movies.splice(i, 1);
+                break;
+            }
+        }
+        // Save movie to local storage
+        localStorage.setItem(table, JSON.stringify(movies));
+    }
+
+    // Add static methods to load movies from localStorge
+    static loadJSON(table) {
+        // Get existing movies from storage
+        var movies = JSON.parse(localStorage.getItem(table));
+        // If no movies, create an array
+        if (!movies) {
+            movies = [];
+        }
+        return movies;
+    }
+
+    static loadMovies() {
+        var movies = Movie.loadJSON("movies");
+        var movieObjects = [];
+        movies.forEach(function (movie) {
+            movieObjects.push(new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos));
+        });
+
+        return Movie.sort(movieObjects);
+    }
+
+    static loadArchive() {
+        var movies = Movie.loadJSON("archive");
+        var movieObjects = [];
+        movies.forEach(function (movie) {
+            movieObjects.push(new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos));
+        });
+         return movieObjects;
+    }
+
+    // Add static method to parse the movie object and return a new movie object
+    static parse(movieJson) {
+        var movie = JSON.parse(movieJson);
+        return new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos);
+    }
+
+    static sort(movies) {
+        movies.sort(function (a, b) {
+            var titleA = a.title.toUpperCase(); // ignore upper and lowercase
+            var titleB = b.title.toUpperCase(); // ignore upper and lowercase
+            if (titleA < titleB) {
+                return -1;
+            }
+            if (titleA > titleB) {
+                return 1;
+            }
+            // names must be equal
+            return 0;
+        });
+        return movies;
+    }
+}
+// // Create the godfather movie
+// var godfather = new Movie(1,"The Godfather","The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.","https://image.tmdb.org/t/p/w500/rPdtLWNsZmAtoZl9PK7S2wE3qiS.jpg",8.6,1,"toBeWatched");
+// // Create Star Wars movie
+// var starWars = new Movie(2,"Star Wars","Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire's world-destroying battle station, while also attempting to rescue Princess Leia from the evil Darth Vader.","https://image.tmdb.org/t/p/w500/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg",8.1,2,"toBeWatched");
+// // Save it to local storage
+// // localStorage.setItem("godfather",godfather.toString());
+// var movies = [godfather,starWars];
+// console.log(movies);
