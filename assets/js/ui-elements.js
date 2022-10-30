@@ -70,6 +70,25 @@ function createButton(iconName, movie, actionmethod) {
     return button;
 }
 
+
+function createLink(iconName, movie, actionmethod) {
+
+    var button = $("<a>")
+        .addClass("ui movie-link-a")
+        // .text(iconName)
+        .attr("data-movie", movie.toString())
+
+        .on("click", function (event) {
+            var newMovie = Movie.parse($(this).attr("data-movie"));
+            // console.log("Clicked-----",newMovie);
+            actionmethod(newMovie);
+        });
+    // <i class="cloud icon"></i>
+    var icon = $("<i>").addClass(iconName + " icon");
+    button.append(icon);
+    return button;
+}
+
 function createMovieSmallCard(movie) {
     var movieCard = $("<div>")
         .addClass("card movie-small-card");
@@ -88,12 +107,14 @@ function createMovieSmallCard(movie) {
         .addClass("itle movie-card-small-title")
         .text(movie.title);
     var movieExtraContent = $("<div>")
-        // .addClass("extra-content");
+        .addClass("extra-content");
     var plot = movie.plot ? movie.plot.substring(0, 200) : "No plot available";
+
     var moviePlot = $("<p>").addClass("description movie-card-small-content").text(plot + "...");
-    var movieRanking = $("<div>").text(rankingIcon(movie.ranking));
+    var movieRanking = $("<p>")
+        .text(rankingIcon(movie.ranking));
     movieExtraContent.append(moviePlot, movieRanking);
-    // movieTitle.append(moviePoster);
+ 
     movieCard.append(movieBody.append(a, movieTitle), movieExtraContent);
     return movieCard;
 }

@@ -3,9 +3,7 @@
   https://github.com/FezVrasta/popper.js/issues/674
   derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
   */
-a {
-    color: #1E252B;
-}
+
         .popper,
         .tooltip {
             position: absolute;
@@ -112,4 +110,29 @@ a {
             top: calc(50% - 5px);
             margin-left: 0;
             margin-right: 0;
+        }
+
+        #movie-modal {
+            max-height: 750px;
+            width: 400px;
+            margin: 0 auto;
+            padding-bottom: 10px;
+          }
+
+        @media (max-width: 819px) {
+            h2{
+                padding-top: 0;
+                margin-top: 0;
+            }
+            h2#fc-dom-1 {
+                font-size: medium;
+            }
+
+            .ui.text.container {
+                margin-bottom: 1rem;
+            }
+
+            footer{
+                display: none;
+            }
         }

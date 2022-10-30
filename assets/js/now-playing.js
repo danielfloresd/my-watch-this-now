@@ -1,9 +1,9 @@
-// Helper fuction to convert movie ranking to heart emoji list
+// Script for now playing page
 
-function createNowPlayingCards(results){
+function createNowPlayingCards(results) {
 
     var movies = getNowPlaying();
-    for(var i = 0; i < movies.length; i++) {
+    for (var i = 0; i < movies.length; i++) {
         var movie = movies[i];
         var movieCard = createMovieSmallCard(movie);
         var buttons = createCardButtons("save", setToBeWatchedNowPlaying, "play", trailer, movie);
@@ -16,7 +16,7 @@ function createNowPlayingCards(results){
 function setToBeWatchedNowPlaying(movie) {
     movie.state = "to-be-watched";
     movie.store();
- 
+
 }
 
 function trailer(movie) {
@@ -43,13 +43,10 @@ function trailerNowPlaying(movie) {
 function initNowPlaying() {
 
     $("#np-searchBtn").on("click", function (event) {
-        var city = $("#np-keyword").val().trim();
-        console.log("click");
+
         $("#now-playing").empty();
 
-        if(city) {
-          createNowPlayingCards($("#now-playing"));
-        }
+        createNowPlayingCards($("#now-playing"));
 
     });
 
@@ -60,18 +57,11 @@ function initNowPlaying() {
         }
     });
 
-    // $("#trailer-close").on("click", function (event) {
-    //     $("#video-player").attr("src", "");
-    //     $("#trailer-modal").modal("hide");
-    // });
-
-    // If the document is ready reload
 }
 
 $(document).ready(function () {
     // Reload the page
     initNowPlaying();
-    console.log("ready...................");
     reloadNowPlaying();
     $('.ui.search')
         .search({

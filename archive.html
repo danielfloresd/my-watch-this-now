@@ -35,9 +35,10 @@
     <div class="ui menu" id="menu-bar">
         <div class="item">
             <div class="ui search">
-                <button class="ui button circular" style="background-color:#d75788" title="Search for movies"
-                    id="np-searchBtn">
-                    <i class="search inverted link icon"></i>
+                <label for="archive-clear" style="color: white";>Clear My Archive</label>
+                <button class="ui button circular" style="background-color:#d75788" title="Clear my archive"
+                    id="archive-clear">
+                    <i class="trash inverted link icon"></i>
                 </button>
             </div>
         </div>
@@ -47,7 +48,7 @@
             <div class="sixteen wide mobile eight wide tablet sixteen wide
                 computer column">
                 <div class="column center aligned">
-                    <h2>Now Playing</h2>
+                    <h2>My Archive</h2>
                     <div class="ui raised very padded container segment
                         now-playing-cards" id="now-playing-cards">
                         <div class="ui container">
@@ -86,11 +87,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
         integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.js"></script>
+    <!-- Include momement.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-9Q1Qb9tYl4LcuD7q3ZtJcVJ9cVQZ9xq4U4HnEYRm2dnaWZ7y+ZQ3Q1dQnnWxZ1hQZ1WZ9M0qE8gWqjG4oZj9gzw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="./assets/js/movie.js"></script>
     <script src="./assets/js/fetch_api.js"></script>
     <script src="./assets/js/ui-elements.js"></script>
-    <script src="./assets/js/now-playing.js"></script>
+    <script src="./assets/js/archive.js"></script>
 </body>
 
 </html>

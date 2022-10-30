@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon-16x16.png">
+    <link rel="manifest" href="./assets/images/site.webmanifest">
     <!-- Link semantic-ui -->
     <link rel="stylesheet" href="./assets/css/reset.css">
     <!-- Add link to card.css -->
@@ -23,52 +27,91 @@
 </head>
 
 <body class="bg-light">
-    <!-- Add hero using semantic-ui -->
-    <div class="ui inverted vertical masthead center aligned segment" id="hero">
-        <div class="ui text container">
-          <div class="ui text container">
-            <a href="./index.html">
-              <i class="film circular icon"></i>
-              <h1 class="ui inverted header">
-                WATCH-THIS-NOW
-              </h1>
-              <h2 style="color:azure">Find New Movies. Make Your Watch List</h2>
-            </a>
-          </div>
-        </div>
-      </div>
-    <div class="ui grid">
-        <div class="sixteen wide mobile eight wide tablet sixteen wide
-                computer column">
-            <div class="column center aligned">
-                <h2>My Calendar for Movie Watching</h2>
-                <div class="ui raised very padded container segment
-                        now-playing-cards" id="now-playing-cards">
-                    <div class="ui grid">
-                        <div id="my-calendar" class="ui doubling cards"></div>
-                        <!-- Add a calendar using semantic-ui -->
-                        <div class="ui container">
-                            <div class="ui menu">
-                                <a class="item cal-view" data-view="dayGridMonth">Month</a>
-                                <a class="item cal-view" data-view="dayGridWeek">Week</a>
-                                <a class="item cal-view" data-view="dayGrid">Day</a>
-                                <a class="item cal-view" data-view="listWeek">List</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br />
-                    <div class="ui container">
-                        <div class="ui grid">
-                            <div class="ui sixteen column">
-                                <div id="calendar"></div>
-                            </div>
-                        </div>
-                    </div>
-
+    <main>
+        <!-- Add hero using semantic-ui -->
+        <div class="ui inverted vertical masthead center aligned segment" id="hero">
+            <div class="ui text container">
+                <div class="ui text container">
+                    <a href="./index.html">
+                        <i class="film big circular icon" style="color: #d75788;"></i>
+                        <h1 class="ui inverted header">
+                            WATCH-THIS-NOW
+                        </h1>
+                        <h2>Find New Movies. Make Your Watch List</h2>
+                    </a>
                 </div>
             </div>
         </div>
+        <div class="ui grid">
+            <div class="sixteen wide mobile eight wide tablet sixteen wide
+                computer column">
+                <div class="column center aligned">
+                    <h2>My Calendar for Movie Watching</h2>
+                    <div class="ui raised very padded container segment
+                        now-playing-cards" id="now-playing-cards">
+                        <div class="ui grid">
+                            <div id="my-calendar" class="ui doubling cards"></div>
+                            <!-- Add a calendar using semantic-ui -->
+                            <!-- <div class="ui container">
+                                <div class="ui menu">
+                                    <a class="item cal-view" data-view="dayGridMonth">Month</a>
+                                    <a class="item cal-view" data-view="dayGridWeek">Week</a>
+                                    <a class="item cal-view" data-view="dayGrid">Day</a>
+                                    <a class="item cal-view" data-view="listWeek">List</a>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <br />
+                        <div class="ui container">
+                            <div class="ui grid">
+                                <div class="ui sixteen column">
+                                    <div id="calendar"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--added a footer-->
+    </main>
+    <footer>
+        <div class="ui container center aligned">
+            <h5>Project created by <strong>Team 3</strong> at UofA Bootcamp &copy; 2022.</h5>
+        </div>
+    </footer>
+    
+  <!-- Modal for movie details -->
+  <div class="ui mini modal" id="movie-modal">
+    <i class="close icon" id="schedule-modal-close"></i>
+    <div class="header" id="movie-modal-title">
+    </div>
+    <!-- Add date selector -->
+    <!-- Add movie <img> -->
+    <div class="ui form">
+      <div class="field">
+        <label for="schedule-date">Date</label>
+        <input type="datetime-local" id="movie-date" name="date">
+        </input>
+        <!-- Add time selector -->
+        <!-- // Add button to save schedule -->
+      </div>
+      <div class="ui">
+        <div class="ui  segment">
+          <img id="movie-modal-img" class="ui image centered medium" src="" alt="movie poster">
+
+        </div>
+        <div class="ui container center aligned" style="">
+          <button class="ui blue button" id="save-movie-button">
+            <i class="save check link icon"></i>Save
+          </button>
+          <button class="ui blue button" id="delete-movie-button">
+            <i class="delete check link icon"></i>Delete
+          </button>
+        </div>
+      </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>

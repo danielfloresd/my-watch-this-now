@@ -154,21 +154,9 @@ function searchNowPlaying() {
             console.log(data);
             for (var i = 0; i < data.results.length; i++) {
                 var result = data.results[i];
-                console.log(result);
-                // this.id = id;
-                // this.title = title;
-                // this.plot = plot;
-                // this.poster = poster;
-                // this.ranking = ranking;
-                // this.trailer = trailer;
-                // this.state = state;
-                // this.providers = providers;
-                // this.providersLogos = providersLogos;
-                // 
                 var poster = IMAGE_URL+result.poster_path;
                 var movie = new Movie(result.id,result.title,result.overview,poster,result.vote_average);
                 movie.releaseDate = result.release_date;
-console.log("Movie: ",movie);
                 NOW_PLAYING.push(movie);
             }
         })
@@ -187,7 +175,6 @@ function searchMovie(query, results) {
                 var result = data.results[i];
                 var movie = new Movie(result.id, result.title, result.overview, IMAGE_URL + result.poster_path, result.vote_average, result.id, "toBeWatched");
                 searchProvidersMovie(movie);
-                // console.log("result for " + query + ": ", result);
                 found(movie);
             }
         })
@@ -208,12 +195,12 @@ function searchProviders() {
 }
 
 function searchProvidersMovie(movie) {
-    // console.log("Searching for providers for movie: ", movie);
+ 
     if(movie.providers) {
         return;
     }
 
-    // console.log("----------------------searchProvidersMovie: ", movie,movie.providers);
+
     var queryURL = `https://api.themoviedb.org/3/movie/${movie.id}/watch/providers?api_key=${API_KEY}`;
     fetch(queryURL)
         .then(function (response) {
@@ -225,7 +212,7 @@ function searchProvidersMovie(movie) {
                 console.log(data.results.US.flatrate);
                 var providersNames = data.results.US.flatrate.map(provider => provider.provider_name);
                 var providersLogos = data.results.US.flatrate.map(provider => `${IMAGE_URL}${provider.logo_path}`);
-                // console.log("providers: ", movie,providersNames, providersLogos);
+             
                 if(!movie.providers){
                     movie.providers = providersNames;
                     movie.providersLogos = providersLogos;
@@ -238,10 +225,7 @@ function searchProvidersMovie(movie) {
 
 // https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US
 function searchCast(movie) {
-    // console.log("Searching for providers for movie: ", movie);
  
-
-    // console.log("----------------------searchProvidersMovie: ", movie,movie.providers);
     var queryURL = `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${API_KEY}`;
     fetch(queryURL)
         .then(function (response) {
@@ -255,11 +239,11 @@ function searchCast(movie) {
             var castImages = [];
             var castCharacters = [];
             for(var i=0;i<castNum;i++){
-                // searchCastImages(data.cast[i].id);
+                
                 cast.push(data.cast[i].name);
                 castImages.push(IMAGE_URL+data.cast[i].profile_path);
                 castCharacters.push(data.cast[i].character);
-                console.log("Adding cast: ",data.cast[i].name + " as " + data.cast[i].character);
+
             }
             movie.cast = cast;
             movie.castImages = castImages;
@@ -280,22 +264,16 @@ function searchCastImages(personID){
         })
         .then(function (data) {
             // Will select only streaming providers
-            console.log("images: ", data);
-        // findCast(movie);
-                // movie.store();
+            // console.log("images: ", data);
             
         });
 }
-// searchProviders();
-
 // Function to add trailer data to the page
 function watchTrailer(tmdbID) {
     // Add the trailer data to the page
     fetch(`${MDBLIST_URL}${tmdbID}`, MDBLIST_OPTIONS)
         .then(response => response.json())
         .then(function (data) {
-            // console.log("----------- trailer------")
-            // console.log(data);
             var trailer = data.trailer;
             window.open(trailer, "_blank");
         })
@@ -310,10 +288,7 @@ function watchTrailerEmbed(tmdbID, videoPlayer) {
     fetch(`${MDBLIST_URL}${tmdbID}`, MDBLIST_OPTIONS)
         .then(response => response.json())
         .then(function (data) {
-            // console.log("----------- trailer------")
-            // console.log(data);
             var trailer = data.trailer;
-            console.log("trailer", trailer);
             var embed = "https://www.youtube.com/embed/" + trailer.split("=")[1];
             videoPlayer.attr("src", embed);
         })
@@ -338,10 +313,8 @@ function findStreamingMovies(movie) {
             var results = data.results;
             for (var i = 0; i < results.length; i++) {
                 var result = results[i];
-                // console.log("Streaming results " + query, movie, results);
                 if (result.tmdbID == movie.id) {
                     console.log("found streaming movie", movie, result);
-
                     return;
                 }
             }

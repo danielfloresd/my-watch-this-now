@@ -44,6 +44,7 @@ class Movie {
     }
 
     archive() {
+        this.archivedAt = new Date();
         this.storeObj("archive");
     }
     // Fuction to save movie to storage
@@ -112,6 +113,22 @@ class Movie {
         return movies;
     }
 
+    static clearArchive() {
+        localStorage.removeItem("archive");
+    }
+
+    static loadMovie(id) {
+        var movies = Movie.loadMovies();
+     
+        for (var i = 0; i < movies.length; i++) {
+            
+            if (movies[i].id == id) {
+                return movies[i];
+            }
+        }
+        return null;
+    }
+
     static loadMovies() {
         var movies = Movie.loadJSON("movies");
         var movieObjects = [];
@@ -126,7 +143,9 @@ class Movie {
         var movies = Movie.loadJSON("archive");
         var movieObjects = [];
         movies.forEach(function (movie) {
-            movieObjects.push(new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos));
+            var aMovie = new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos);
+            aMovie.archivedAt = movie.archivedAt;
+            movieObjects.push(aMovie);
         });
          return movieObjects;
     }
@@ -153,11 +172,3 @@ class Movie {
         return movies;
     }
 }
-// // Create the godfather movie
-// var godfather = new Movie(1,"The Godfather","The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.","https://image.tmdb.org/t/p/w500/rPdtLWNsZmAtoZl9PK7S2wE3qiS.jpg",8.6,1,"toBeWatched");
-// // Create Star Wars movie
-// var starWars = new Movie(2,"Star Wars","Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire's world-destroying battle station, while also attempting to rescue Princess Leia from the evil Darth Vader.","https://image.tmdb.org/t/p/w500/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg",8.1,2,"toBeWatched");
-// // Save it to local storage
-// // localStorage.setItem("godfather",godfather.toString());
-// var movies = [godfather,starWars];
-// console.log(movies);

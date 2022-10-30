@@ -9,11 +9,7 @@ function createMovieAvatarCard(movie) {
         .attr("alt", movie.title)
     var a = $("<a>").attr("href", movie.link());
     a.append(image);
-    // var content = $("<div>").addClass("content");
-    // var header = $("<div>").addClass("header").text(movie.title);
-    // var description = $("<div>").text(movie.plot.substring(0, 50) + "...");
-    // var ranking = $("<div>").text(movie.ranking);
-    // content.append(header);
+
     item.append(a);
     return item;
 }
@@ -32,9 +28,7 @@ function createMovieTextCard(movie) {
     var header = $("<p>")
         .addClass("title movie-text-card-title")
         .text(movie.title)
-    // .attr("style", "height:90%;");
-    // var description = $("<div>").text(movie.plot.substring(0, 50) + "...");
-    // var ranking = $("<div>").text(movie.ranking);
+
     a.append(header);
     content.append(image, header);
     item.append(content);
@@ -46,15 +40,14 @@ function createMovieMiniCard2(movie) {
     var image = $("<img>")
         .addClass("ui tiny image right floated")
         .attr("src", movie.poster)
-        .attr("alt", "Movie: "+movie.title)
+        .attr("alt", "Movie: " + movie.title)
         .attr("data-title", movie.title)
         .attr("data-content", movie.plot)
     var a = $("<a>").attr("href", movie.link());
     a.append(image);
     var content = $("<div>").addClass("content");
     var header = $("<p>").addClass("").text("⭐" + movie.title.substring(0, 30));
-    // var description = $("<div>").text(movie.plot.substring(0, 50) + "...");
-    // var ranking = $("<div>").text(movie.ranking);
+
     content.append(header);
     item.append(a, header);
     return item;
@@ -66,7 +59,7 @@ function createMovieMiniCard(movie) {
         .addClass("ui card movie-mini-card")
     // .attr("style", "max-height: 150px;");
 
-    var image = $("<img>").addClass("right floated mini ui image").attr("src", movie.poster).attr("alt", "Movie: " +movie.title);
+    var image = $("<img>").addClass("right floated mini ui image").attr("src", movie.poster).attr("alt", "Movie: " + movie.title);
     var a = $("<a>").attr("href", movie.link());
     a.append(image);
     var movieBody = $("<div>")
@@ -76,11 +69,7 @@ function createMovieMiniCard(movie) {
     var movieTitle = $("<p>")
         .addClass("movie-card-mini-title")
         .text(title)
-    // movieTitle.append(movieTitleFill);
-    // var plot = movie.plot;
-    // var moviePlot = $("<div>").addClass("extra-content").text(plot);
-    // var movieRanking = $("<div>").addClass("extra content").text(`Ranking: ${movie.ranking}`);
-    // movieTitle.append(moviePoster);
+
     movieCard.append(movieBody.append(a, movieTitle));
     return movieCard;
 }
@@ -102,7 +91,7 @@ function createMovieTinyCard(movie) {
 
     var plot = movie.plot ? movie.plot.substring(0, 50) : "No plot available";
     var moviePlot = $("<p>")
-        .addClass("extra content")
+        .addClass("content")
         .text(plot + "...");
     movieCard.append(movieBody.append(a, movieTitle), moviePlot);
     return movieCard;
@@ -201,7 +190,7 @@ function createProviderLinks(cardLinks, movie) {
         var providerImage = $("<img>")
             .addClass("ui avatar image movie-card-small-avatar")
             .attr("src", providerLogo)
-            .attr("alt",i + " "+ pr+ " logo");
+            .attr("alt", i + " " + pr + " logo");
         providerLink.append(providerImage);
 
         // Add providerLink to the beggining of the cardLinks
@@ -212,7 +201,7 @@ function createProviderLinks(cardLinks, movie) {
 
 function createActorCard(actor, character, actorImage) {
     var actorCard = $("<div>").addClass("ui card actor-card");
-    var actorImage = $("<img>").addClass("ui tiny image").attr("src", actorImage).attr("alt", "Actor: " + actor +  " playing " + character);
+    var actorImage = $("<img>").addClass("ui tiny image").attr("src", actorImage).attr("alt", "Actor: " + actor + " playing " + character);
     var actorBody = $("<div>").addClass("content");
     var actorName = $("<a>").addClass("header").text(actor);
     var actorCharacter = $("<div>").addClass("meta").text(character);
@@ -228,8 +217,7 @@ function found(movie) {
     var results = $("#search-results");
     var card = createMovieSmallCard(movie);
     var buttons = createCardButtons("save", setToBeWatched, "play", trailer, movie, "users", cast);
-    // var buttons = createCardButtons("save", setToBeWatched, "play", trailer, movie);
-    // var buttons = createCardLinks("save", setToBeWatched, "play", trailer, movie);
+
     card.append(buttons);
     // card.append(buttons);
     myfoundMoviesCards[movie.id] = card;
@@ -261,27 +249,23 @@ function setWatched(movie) {
 
 function toBeWatched(movie) {
     var results = $("#to-be-watched");
-    // If a movie will be watch load its providers
-    // searchProvidersMovie(movie);
-    // var card = createMovieSmallCard(movie);
+
     var card = createMovieTinyCard(movie);
     var buttons = createCardLinks("eye", setWatching, "archive", deleteMovie, movie, "calendar plus", scheduleMovie);
 
     myToBeWatchedMoviesCards[movie.id] = card;
     // Get card children by class name
     searchProvidersMovie(movie);
-    // var link = createLink("video", movie, providers);
-    // buttons.append(link);
-    // buttons.append(toBeWatchedButton, deleteButton);
+
     card.append(buttons);
     results.append(card);
 }
 
 // Add watched function will add the movie to the database
 function watching(movie) {
-    // console.log("watching", movie);
+
     var results = $("#watching");
-    // var card = createMovieSmallCard(movie);
+
     var card = createMovieMiniCard(movie);
     var buttons = $("<div>");//.addClass("ui buttons");
     var watchedButton = createLink("check", movie, setWatched);
@@ -299,12 +283,12 @@ function watched(movie) {
     var buttons = $("<div>");//.addClass("ui two buttons");
     var button1 = createLink("archive", movie, archive);
 
-    // button1.text("👍");
+    button1.text("👎");
 
-    var button2 = createLink("heart", movie, ratings);
-    // button2.text("♥");
+    var button2 = createLink("heart", movie, archive);
+    button2.text("👍");
     var rating = $("<div>").addClass("ui star rating").attr("data-rating", 0).attr("data-max-rating", "5");
-/* <div class="ui heart rating" data-rating="1" data-max-rating="3"></div> */
+
     card.append(rating);
     buttons.append(button2, button1, rating);
     card.append(buttons);
@@ -339,11 +323,15 @@ function providers(movie) {
     $("#provider-modal").modal("show");
 }
 
-
 // Add removeMovie function will remove the movie from the database
 function deleteMovie(movie) {
-    movie.remove();
-    reloadMovies();
+
+    // Get confirmation from the user
+    var confirmation = confirm("Are you sure you want to delete " + movie.title + "?");
+    if (confirmation) {
+        movie.remove();
+        reloadMovies();
+    }
 }
 
 function archive(movie) {
@@ -387,15 +375,6 @@ function findCast(movie) {
 
 }
 
-// Add nextCategory function will change the category to the next one
-function nextCategory(movie) {
-
-
-}
-// Add createNote function will add the note to the database
-function createNote(movie) {
-
-}
 
 function scheduleMovie(movie) {
     $("#schedule-modal").modal("show");
@@ -403,7 +382,7 @@ function scheduleMovie(movie) {
     $("#schedule-modal-img").attr("src", movie.poster);
     // Set todays date as the default date in the input field
     $("#schedule-date")
-        .val(moment().format("YYYY-MM-DD hh:mm"))
+        .val(moment().format("YYYY-MM-DD") + " 17:00")
         .attr("min", moment().format("YYYY-MM-DD hh:mm"));
     $("#schedule-modal-description").text("Select the date you want to watch " + movie.title);
 
@@ -411,13 +390,13 @@ function scheduleMovie(movie) {
         var date = $("#schedule-date").val();
         var dateTime = moment(date).format("YYYY-MM-DD HH:mm");
         var movieUrl = "https://www.themoviedb.org/movie/" + movie.id;
-        // movie.date = date;
-        // movie.store();
+
 
         var movieEvent = {
+            id: movie.id,
             title: movie.title,
             start: dateTime,
-            description: dateTime
+            description: movie.title + " " + dateTime
             // url: movieUrl
         };
 
@@ -474,17 +453,10 @@ function initUI() {
 
         var movies = searchMovie(keyword, $("#results"));
 
-        // Comment starting here to disable search results modal
-        // if (movies > 0) {
-
-        // $("#resultsmodal").modal({
-        //     centered: false
-        // }).modal("show");
-
         setTimeout(function () {
             $('.ui.modal').modal('refresh');
         }, 300);
-        // }
+
         // Comment end here to disable search results modal
     });
 
@@ -516,11 +488,5 @@ function initUI() {
 $(document).ready(function () {
     // Reload the page
     initUI();
-    console.log("ready...................");
     reloadMovies();
-    // $('.ui.search')
-    //     .search({
-    //         source: getSearchContent(),
-    //         showNoResults: false
-    //     });
 });
