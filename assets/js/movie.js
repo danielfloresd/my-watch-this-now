@@ -72,6 +72,8 @@ class Movie {
 
         // Save movie to local storage
         localStorage.setItem(table, JSON.stringify(movies));
+
+        Movie.storeMoviesAtServer();
     }
 
 
@@ -154,6 +156,14 @@ class Movie {
     static parse(movieJson) {
         var movie = JSON.parse(movieJson);
         return new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos);
+    }
+
+    static storeMoviesAtServer() {
+        var movies = Movie.loadMovies();
+        var moviesJson = JSON.stringify(movies);
+        $.post("http://127.0.0.1:5500/data/data.json", moviesJson, function (data) {
+            console.log(data);
+        });
     }
 
     static sort(movies) {
