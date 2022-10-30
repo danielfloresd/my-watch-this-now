@@ -113,10 +113,9 @@
         }
 
         #movie-modal {
-            max-height: 750px;
-            width: 400px;
-            margin: 0 auto;
-            padding-bottom: 10px;
+            max-height: 650px;
+            width: 360px;
+            padding-left: 10px;
           }
 
         @media (max-width: 819px) {
@@ -125,7 +124,7 @@
                 margin-top: 0;
             }
             h2#fc-dom-1 {
-                font-size: medium;
+                font-size: small;
             }
 
             .ui.text.container {

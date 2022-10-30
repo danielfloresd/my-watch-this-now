@@ -12,7 +12,11 @@
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> -->
   <!-- Link bumla  -->
   <!-- Link semantic-ui -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"> -->
+
+  <!-- Link semantic-ui 2.5 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+
   <link rel="stylesheet" href="./assets/css/reset.css">
   <!-- Add link to card.css -->
   <link rel="stylesheet" href="./assets/css/ui.css">
@@ -32,7 +36,7 @@
             WATCH-THIS-NOW
           </h1>
           <h2>Find New Movies. Make Your Watch List</h2>
-          
+
         </a>
       </div>
     </div>
@@ -46,7 +50,7 @@
         <i class="calendar icon"></i>
       </a>
       <a href="./now-playing.html" style="color: aliceblue;">Now Playing
-        <i class="video camera icon" alt="Now Playinh"></i>
+        <i class="video camera icon" alt="Now Playing"></i>
       </a>
     </div>
   </div>
@@ -63,7 +67,84 @@
       </div>
     </div>
   </div>
-  <div class="ui grid" id="ui-grid">
+  <!-- <div class="ui top attached tabular menu">
+    <a class="active item" data-tab="first">First</a>
+    <a class="item" data-tab="second">Second</a>
+    <a class="item" data-tab="third">Third</a>
+  </div>
+  <div class="ui bottom attached tab active segment" data-tab="first">
+    First
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="second">
+    Second
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="third">
+    Third
+  </div>  -->
+  <div class="ui top attached tabular menu">
+    <a class="item active" data-tab="first-tab">Watching</a>
+    <!-- <a class="item " data-tab="first">Watching</a> -->
+    <a class="item" data-tab="second-tab">To-Be-Watched</a>
+    <a class="item" data-tab="third-tab">Watched</a>
+  </div>
+  <div class="ui bottom attached tab active segment" data-tab="first-tab">
+    <h2>Watching</h2>
+    <div class="ui cards movie-cards" id="watching"></div>
+  </div>
+  <!-- <div class="ui bottom attached tab segment" data-tab="first">
+    <h2>Watching</h2>
+      <div class="ui cards" id="watching"></div>
+  </div> -->
+  <div class="ui bottom attached tab segment" data-tab="second-tab">
+    <h2>To-Be-Watched</h2>
+    <div id="to-be-watched" class="ui cards movie-cards"></div>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="third-tab">
+    <h2>Watched</h2>
+    <div class="ui cards movie-cards" id="watched"></div>
+  </div>
+  <!-- <div class="ui top attached tabular menu">
+    <a class="active item" data-tab="first">To-Be-Watched</a>
+    <a class="item" data-tab="second">Watching</a>
+    <a class="item" data-tab="third">Watched</a>
+  </div> -->
+  <!-- <div class="ui bottom attached tab segment" data-tab="first"> -->
+  <!-- <div class="sixteen wide mobile eight wide tablet sixteen wide
+    computer column"> -->
+  <!-- <div class=""> -->
+  <!-- <div class="column center aligned"> -->
+  <!-- <h2>To-Be-Watched</h2> -->
+  <!-- <div class="ui raised very padded container segment movie-cards" id="watching-cards"> -->
+  <!-- <div class="ui movie-cards" id="watching-cards"> -->
+  <!-- <div class="ui  doubling cards" id="watching">
+           -->
+  <!-- <div id="to-be-watched" class="ui cards"></div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- <div class="ui bottom attached active tab segment" data-tab="second"> -->
+  <!-- <div class="sixteen wide mobile eight wide tablet sixteen wide computer column"> -->
+  <!-- <div class="column center aligned"> -->
+  <!-- <h2>Watching</h2> -->
+  <!-- <div class="ui raised very padded container segment movie-cards" id="to-be-watched-cards"> -->
+  <!-- <div class="ui"> -->
+  <!-- <div class="ui cards" id="watching"></div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- <div class="ui bottom attached tab segment" data-tab="third"> -->
+  <!-- <div class="sixteen wide mobile eight wide tablet sixteen wide computer column">
+    <div class="column center aligned"> -->
+  <!-- <h2>Watched</h2> -->
+  <!-- <div class="ui raised very padded container segment movie-cards" id="watched-cards"> -->
+  <!-- <div class="ui cards" id="watched"></div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- <div class="ui grid" id="ui-grid">
     <div class="sixteen wide mobile eight wide tablet eight wide computer column">
       <div class="column center aligned">
         <h2>To Be watched</h2>
@@ -93,7 +174,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--added a footer-->
   <div class="ui modal" id="trailer-modal">
     <i class="close icon" id="trailer-close"></i>
@@ -158,30 +239,32 @@
       </div>
       <!-- Add date selector -->
       <!-- Add movie <img> -->
-      <div class="ui segment" style="min-height:500px" id="results-loader">
+      <!-- <div class="ui segment" style="min-height:500px" id="results-loader"> -->
         <div class="ui active dimmer">
           <div class="ui indeterminate text loader"></div>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
 
     <!-- Modal widow for search Results -->
-    <div class="ui fullscreen modal" id="resultsmodal">
+    <div class="ui basic modal" id="resultsmodal">
       <i class="close icon" id="results-close"></i>
       <div class="header" id="results-title">
         <h1>Search Results</h1>
       </div>
-      <div class="sixteen wide mobile eight wide tablet eight wide computer center aligned column">
-        <div id="search-results" class="ui doubling cards"></div>
+      <!-- <div class="ui bottom attached tab active segment" data-tab="first"> -->
+      <div class="ui raised very padded container segment">
+        <div id="search-results" class="ui cards movie-cards"></div>
       </div>
-    </div>
+      <!-- </div> -->
+    <!-- </div> -->
   </div>
   </main>
-  <footer>
+  <!-- <footer>
     <div class="ui container center aligned">
-      <h5>Project created by <strong>Team 3</strong> at UofA Bootcamp &copy; 2022.</h5>
+      <h5>Project-One created by <strong>Team 3</strong> at UofA Bootcamp &copy; 2022.</h5>
     </div>
-  </footer>
+  </footer> -->
   <!-- ✅ load jQuery ✅ -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -191,11 +274,19 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Add moment.js to format date and time -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"
+    integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="./assets/js/movie.js"></script>
   <script src="./assets/js/ui-elements.js"></script>
   <script src="./assets/js/ui.js"></script>
   <script src="./assets/js/fetch_api.js"></script>
+  <script>
+    $('.menu .item')
+      .tab()
+      ;
+  </script>
 </body>
 
 </html>

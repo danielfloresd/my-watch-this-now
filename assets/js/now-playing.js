@@ -61,8 +61,14 @@ function initNowPlaying() {
 
 $(document).ready(function () {
     // Reload the page
+    $("#loader-modal").modal("show"); // Show loader modal
     initNowPlaying();
     reloadNowPlaying();
+    
+    setTimeout(function () {
+        createNowPlayingCards($("#now-playing"));
+        $("#loader-modal").modal("hide"); // Hide loader modal
+    }, 1000);
     $('.ui.search')
         .search({
             source: getSearchContent(),

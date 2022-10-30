@@ -60,6 +60,10 @@ function showMovie(id, start) {
         $("#movie-date").val(start); // Set date in modal window
         // $("#movie-trailer").attr("src", movie.trailer);
         $("#movie-modal").modal("show");
+
+        setTimeout(function () {
+            $('.ui.modal').modal('refresh');
+        }, 300);
     }
 }
 
@@ -94,7 +98,7 @@ function saveEvent(event) {
 function addEventListeners() {
 
     $("#save-movie-button").on("click", function () {
-
+console.log("save-movie-button");
         var movie = Movie.parse($("#movie-modal-title").attr("data-movie")); // Get movie id from modal window
     
         // var movieId = $("#movie-modal").attr("data-movie-id"); // Get movie id from modal window
@@ -114,9 +118,9 @@ function addEventListeners() {
 
         deleteEvent(movieEvent.id);
         saveEvent(movieEvent); // Save event to localStorage
-        $("#movie-movie-modal").modal("hide");
-        // window.location.reload(); // Reload page to show new event
-        calendar.render(); // Reload calendar to show new event
+        $("#movie-modal").modal("hide");
+        window.location.reload(); // Reload page to show new event
+        // calendar.render(); // Reload calendar to show new event
         // 
         // reloadMovies();
     });
@@ -125,7 +129,7 @@ function addEventListeners() {
         var movie = Movie.parse($("#movie-modal-title").attr("data-movie")); // Get movie id from modal window
         deleteEvent(movie.id);
         $("#movie-movie-modal").modal("hide");
-        // window.location.reload(); // Reload page to show new event
-        calendar.render(); // Reload calendar to show new event
+        window.location.reload(); // Reload page to show new event
+        // calendar.render(); // Reload calendar to show new event
     });
 }

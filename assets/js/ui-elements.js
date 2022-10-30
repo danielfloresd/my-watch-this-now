@@ -23,14 +23,19 @@ function rankingIcon(ranking) {
 // Create card buttons
 function createCardButtons(button1, action1, button2, action2, movie, button3, action3) {
     var numBtns = button3 ? "three" : "two";
-    var buttons = $("<div>").addClass(`ui ${numBtns} bottom attached buttons card-buttons`);
+    var buttons = $("<div>")
+        // .addClass(`ui  ${numBtns} bottom attached buttons card-buttons`);
+        .addClass(`ui icon buttons card-buttons`);
     var button1 = createButton(button1, movie, action1);
     var button2 = createButton(button2, movie, action2);
     if (button3) {
         var button3 = createButton(button3, movie, action3);
+        var divider1 = $("<div>").addClass("or");
+        var divider2 = $("<div>").addClass("or");
         buttons.append(button1, button2, button3);
     } else {
-        buttons.append(button1, button2);
+        var divider = $("<div>").addClass("or");
+        buttons.append(button1,button2);
     }
     return buttons;
 }

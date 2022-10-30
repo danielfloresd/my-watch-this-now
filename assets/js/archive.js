@@ -11,12 +11,11 @@ function createNowPlayingCards(results) {
         var archivedAt = movie.archivedAt ? movie.archivedAt : new Date();
         console.log("2.- Archived at: ",archivedAt); // This is undefined
         var dateTime = moment(archivedAt).format("YYYY-MM-DD HH:mm");
-        var archivedAtLabel = $("<h2>").addClass("badge badge-secondary").text("Watched at "+dateTime);   
+        var archivedAtLabel = $("<h4>").addClass("badge badge-secondary").text("Watched at "+dateTime);   
         movieCard.append(archivedAtLabel);  // Add label to card
         // Create Link to delete movie from archive
-        var deleteLink = createLink("trash",movie,deleteFromArchive); // Create link to delete movie from archive
-        movieCard.append(deleteLink);  // Add label to card
-        var buttons = createCardButtons("save", setToBeWatchedNowPlaying, "play", trailer, movie);
+// / Add label to card
+        var buttons = createCardButtons("save", setToBeWatchedNowPlaying, "play", trailer, movie,"trash",deleteFromArchive); // Create buttons to save and play trailer");
         movieCard.append(buttons);
         results.append(movieCard);
     }

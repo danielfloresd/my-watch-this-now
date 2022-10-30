@@ -147,16 +147,14 @@ function createLink(iconName, movie, actionmethod) {
 
 function findProviders(movie) {
     // Add provider images to card
-    console.log("Finding providers for ", movie);
     var card = myfoundMoviesCards[movie.id];
     if (card) {
         // Get data attribute from card data-has-links
         var hasLinks = card.attr("data-has-links");
         if (!hasLinks) {
             var cardLinks = card.children(".movie-card-small-body");
-            console.log("2 Finding providers for ", movie);
+    
             createProviderLinks(cardLinks, movie);
-            card.attr("data-has-links", true);
         }
     }
 
@@ -166,16 +164,13 @@ function findProviders(movie) {
         var hasLinks = card.attr("data-has-links");
         if (!hasLinks) {
             cardLinks = card.children(".movie-card-tiny-body");
-            console.log("3 Finding providers for ", movie);
             createProviderLinks(cardLinks, movie);
-            card.attr("data-has-links", true);
         }
     }
 }
 
 function createProviderLinks(cardLinks, movie) {
 
-    console.log("card", movie, "links:", cardLinks);
     var providerNum = movie.providers ? movie.providers.length : 0;
     //Handle only 4 providers for now
     if (providerNum > 3)
@@ -251,7 +246,7 @@ function toBeWatched(movie) {
     var results = $("#to-be-watched");
 
     var card = createMovieTinyCard(movie);
-    var buttons = createCardLinks("eye", setWatching, "archive", deleteMovie, movie, "calendar plus", scheduleMovie);
+    var buttons = createCardButtons("eye", setWatching, "archive", deleteMovie, movie, "calendar plus", scheduleMovie);
 
     myToBeWatchedMoviesCards[movie.id] = card;
     // Get card children by class name
@@ -266,11 +261,12 @@ function watching(movie) {
 
     var results = $("#watching");
 
-    var card = createMovieMiniCard(movie);
+    var card = createMovieTinyCard(movie);
     var buttons = $("<div>");//.addClass("ui buttons");
-    var watchedButton = createLink("check", movie, setWatched);
-    var deleteButton = createLink("archive", movie, deleteMovie);
-    buttons.append(watchedButton, deleteButton);
+    var watchedButton = createButton("check", movie, setWatched);
+    var deleteButton = createButton("archive", movie, deleteMovie);
+    var buttons = createCardButtons("check", setWatched, "archive", deleteMovie, movie, "calendar plus", scheduleMovie);
+    // buttons.append(watchedButton, deleteButton);
     card.append(buttons);
     results.append(card);
 
@@ -279,18 +275,18 @@ function watching(movie) {
 // Add watched function will add the movie to the database
 function watched(movie) {
     var results = $("#watched");
-    var card = createMovieMiniCard(movie);
+    var card = createMovieTinyCard(movie);
     var buttons = $("<div>");//.addClass("ui two buttons");
-    var button1 = createLink("archive", movie, archive);
+    var button1 = createButton("archive", movie, archive);
 
     button1.text("👎");
 
-    var button2 = createLink("heart", movie, archive);
+    var button2 = createButton("heart", movie, archive);
     button2.text("👍");
     var rating = $("<div>").addClass("ui star rating").attr("data-rating", 0).attr("data-max-rating", "5");
-
+    var buttons = createCardButtons("thumbs up outine", archive, "thumbs down outline", archive, movie, "star", archive);
     card.append(rating);
-    buttons.append(button2, button1, rating);
+    // buttons.append(button2, button1, rating);
     card.append(buttons);
     results.append(card);
 }
@@ -418,6 +414,9 @@ function scheduleMovie(movie) {
         // reloadMovies();
     });
     reloadMovies();
+    setTimeout(function () {
+        $('.ui.modal').modal('refresh');
+    }, 300);
 }
 
 // Add function to reload local storage and reload the page
@@ -453,9 +452,9 @@ function initUI() {
 
         var movies = searchMovie(keyword, $("#results"));
 
-        setTimeout(function () {
-            $('.ui.modal').modal('refresh');
-        }, 300);
+        // setTimeout(function () {
+        //     $('.ui.modal').modal('refresh');
+        // }, 300);
 
         // Comment end here to disable search results modal
     });

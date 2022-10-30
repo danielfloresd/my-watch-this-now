@@ -151,7 +151,7 @@ function searchNowPlaying() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+           
             for (var i = 0; i < data.results.length; i++) {
                 var result = data.results[i];
                 var poster = IMAGE_URL+result.poster_path;
@@ -170,7 +170,7 @@ function searchMovie(query, results) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+          
             for (var i = 0; i < data.results.length; i++) {
                 var result = data.results[i];
                 var movie = new Movie(result.id, result.title, result.overview, IMAGE_URL + result.poster_path, result.vote_average, result.id, "toBeWatched");
@@ -190,7 +190,7 @@ function searchProviders() {
             return response.json();
         })
         .then(function (data) {
-            console.log("providers: ", data);
+         
         });
 }
 
@@ -209,7 +209,7 @@ function searchProvidersMovie(movie) {
         .then(function (data) {
             // Will select only streaming providers
             if (data.results.US && data.results.US.flatrate) {
-                console.log(data.results.US.flatrate);
+                
                 var providersNames = data.results.US.flatrate.map(provider => provider.provider_name);
                 var providersLogos = data.results.US.flatrate.map(provider => `${IMAGE_URL}${provider.logo_path}`);
              
@@ -233,7 +233,7 @@ function searchCast(movie) {
         })
         .then(function (data) {
             // Will select only streaming providers
-            console.log("cast: ", data,movie);
+            
             var castNum = data.cast.length;
             var cast = [];
             var castImages = [];
@@ -264,7 +264,6 @@ function searchCastImages(personID){
         })
         .then(function (data) {
             // Will select only streaming providers
-            // console.log("images: ", data);
             
         });
 }
@@ -284,7 +283,7 @@ function watchTrailer(tmdbID) {
 // Function to add trailer data to the page
 function watchTrailerEmbed(tmdbID, videoPlayer) {
     // Add the trailer data to the page
-    console.log("get trailer:", tmdbID);
+   
     fetch(`${MDBLIST_URL}${tmdbID}`, MDBLIST_OPTIONS)
         .then(response => response.json())
         .then(function (data) {
@@ -314,7 +313,7 @@ function findStreamingMovies(movie) {
             for (var i = 0; i < results.length; i++) {
                 var result = results[i];
                 if (result.tmdbID == movie.id) {
-                    console.log("found streaming movie", movie, result);
+              
                     return;
                 }
             }
