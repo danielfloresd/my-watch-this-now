@@ -80,7 +80,7 @@ div#to-be-watched-cards {
   font-weight: bold;
   color: whitesmoke;
   text-align: left;
-  max-width: 100px;
+  width: 100px;
 }
 
 .movie-card-small-avatar {
