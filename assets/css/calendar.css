@@ -157,7 +157,9 @@
             }
 
             footer {
+                padding-top: 5px;
                 height: 90px;
+                padding-right: 1rem;
                 /* display: none; */
                 /* height: 2rem; */
             }
