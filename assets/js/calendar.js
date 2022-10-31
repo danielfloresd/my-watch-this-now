@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var initialView = isMobile() ? 'listWeek' : 'dayGridMonth';
     calendar = new FullCalendar.Calendar(calendarEl, {
+        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives', // For fullcalendar-scheduler plugin
         eventDidMount: function (info) {
             if (!isMobile()) {
                 var tooltip = new Tooltip(info.el, {
