@@ -1,7 +1,7 @@
 // Script for now playing page
 function createMovieSmallCard(movie) {
     var movieCard = $("<div>")
-        .addClass("card movie-small-card");
+        .addClass("card fluid movie-small-card");
     var image = $("<img>")
         .addClass("right floated small ui image")
         .attr("src", movie.poster)
