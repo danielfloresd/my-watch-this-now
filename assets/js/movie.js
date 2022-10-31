@@ -27,6 +27,18 @@ class Movie {
         return this.state === "watching";
     }
 
+    nextState() {
+        if (this.isToBeWatched()) {
+            return "watching";
+        } else if (this.isWatching()) {
+            return "watched";
+        } else if (this.isWatched()) {
+            return "to-be-watched";
+        } else {
+            return "to-be-watched";
+        }
+    }
+
     // Function to stringify the movie object
     toString() {
         return JSON.stringify(this);

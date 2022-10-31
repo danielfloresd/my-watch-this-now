@@ -35,19 +35,40 @@ function createCardButtons(button1, action1, button2, action2, movie, button3, a
         buttons.append(button1, button2, button3);
     } else {
         var divider = $("<div>").addClass("or");
-        buttons.append(button1,button2);
+        buttons.append(button1, button2);
     }
     return buttons;
 }
 
-
+function getButtonAltText(iconName,movie) {
+    
+    if (iconName == "archive") {
+        return "Archive";
+    }
+    else if (iconName == "play") {
+        return "Watch Trailer";
+    }
+    else if (iconName == "trash") {
+        return "Delete Movie";
+    }
+    else if (iconName == "calendar plus" )
+    {
+        return "Add to Calendar";
+    } else if (iconName == "users") {
+        return "Show Cast";
+    } 
+    else {
+        return  "Move " + movie.title + " to " + movie.nextState();
+    }
+    return "Unknown";   
+}
 function createButton(iconName, movie, actionmethod) {
     var button = $("<button>")
         .addClass("ui button")
         // .text(text)
         .attr("data-movie", movie.toString())
-        .attr("alt", movie.title + " " + iconName)
-        .attr("title", movie.title + " " + iconName)
+        .attr("alt", getButtonAltText(iconName,movie))
+        .attr("title", getButtonAltText(iconName,movie))
         .on("click", function (event) {
             var newMovie = Movie.parse($(this).attr("data-movie"));
             //    Get event target element
@@ -100,7 +121,7 @@ function createMovieSmallCard(movie) {
     var image = $("<img>")
         .addClass("right floated small ui image")
         .attr("src", movie.poster)
-        .attr("alt", "Movie poster:"+ movie.title);
+        .attr("alt", "Movie poster:" + movie.title);
     var a = $("<a>")
         .attr("href", movie.link());
     a.append(image);
@@ -117,9 +138,9 @@ function createMovieSmallCard(movie) {
 
     var moviePlot = $("<p>").addClass("description movie-card-small-content").text(plot + "...");
     var movieRanking = $("<p>")
-        .text("Ranking: " + rankingIcon(movie.ranking));
+        .text("TMDB: " + rankingIcon(movie.ranking));
     movieExtraContent.append(moviePlot, movieRanking);
- 
+
     movieCard.append(movieBody.append(a, movieTitle), movieExtraContent);
     return movieCard;
 }
