@@ -33,16 +33,19 @@
         </div>
     </div>
     <div class="ui menu" id="menu-bar">
-        <div class="item">
+        <!-- <div class="item">
             <div class="ui search">
-                <button class="ui button circular" style="background-color:#d75788; color: aliceblue;"
-                    title="Clear my archive" id="archive-clear">
+                <a class="ui link" style="color: aliceblue;" title="Clear my archive" id="archive-clear">
                     <i class="trash inverted link icon"></i>
                     Archive
-                </button>
+                </a>
             </div>
-        </div>
+        </div> -->
         <div class="item right">
+            <a class="ui link" style="color: aliceblue;" title="Clear my archive" id="archive-clear">
+                Archive
+                <i class="trash inverted link icon"></i>
+            </a>
             <a href="./index.html" style="color: aliceblue;">Home
                 <i class="home icon" alt="Home"></i>
             </a>
@@ -64,7 +67,7 @@
                     <div class="ui raised very padded container segment
                         now-playing-cards" id="now-playing-cards">
                         <div class="ui container">
-                            <div id="now-playing" class="ui doubling cards"></div>
+                            <div id="now-playing" class="ui cards movie-cards"></div>
                         </div>
                     </div>
                 </div>
