@@ -117,7 +117,7 @@ function createMovieSmallCard(movie) {
 
     var moviePlot = $("<p>").addClass("description movie-card-small-content").text(plot + "...");
     var movieRanking = $("<p>")
-        .text(rankingIcon(movie.ranking));
+        .text("Ranking: " + rankingIcon(movie.ranking));
     movieExtraContent.append(moviePlot, movieRanking);
  
     movieCard.append(movieBody.append(a, movieTitle), movieExtraContent);

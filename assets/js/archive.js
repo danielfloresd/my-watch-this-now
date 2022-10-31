@@ -87,6 +87,9 @@ function setToBeWatchedArchive(movie) {
     movie.archivedAt = null; // Set archivedAt to null when unarchiving
     movie.store();
 
+    movie.removeArchive(); // Remove movie from archive
+    reloadArchive(); // Reload now playing page
+
 }
 
 function deleteFromArchive(movie) {

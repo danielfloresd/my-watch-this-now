@@ -472,6 +472,16 @@ function initUI() {
         $("#trailer-modal").modal("hide");
     });
 
+    $('.menu .item')
+    .tab()
+    ;
+
+    $('#my-rating')
+        .rating({
+            initialRating: 5,
+            maxRating: 5
+    });
+
     // If the document is ready reload
 }
 

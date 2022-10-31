@@ -19,22 +19,6 @@
 </head>
 
 <body class="">
-  <!-- Add hero using semantic-ui -->
-  <!-- <div class="ui left demo vertical inverted sidebar visible labeled icon menu">
-    <a class="item">
-      <i class="home icon"></i>
-      Home
-    </a>
-    <a class="item">
-      <i class="block layout icon"></i>
-      Topics
-    </a>
-    <a class="item">
-      <i class="smile icon"></i>
-      Friends
-    </a>
-  </div> -->
-  <!-- <div class="pusher"> -->
   <div class="ui inverted vertical masthead center aligned segment" id="hero">
     <div class="ui text container">
       <div class="ui text container">
@@ -89,122 +73,119 @@
   </div>
   <div class="ui bottom attached tab segment" data-tab="third-tab">
     <!-- <h2>Watched</h2> -->
-    <div class="ui cards movie-cards" id="watched"></div>
-  </div>
-  <!--added a footer-->
-  <footer>
-    <div class="ui container center aligned">
+    <p>My rating ⭐⭐⭐⭐⭐</p>
+    <!-- <div class="ui text menu">
+      <div class="item left">
+        <p>My Rating:</p>
+        <div class="ui star rating" data-rating="5" id="my-rating"></div>
+      </div>
+    </div> -->
+      <div class="ui cards movie-cards" id="watched">
+      </div>
+    </div>
+    <!--added a footer-->
+    <footer>
+      <div class="ui container center aligned">
         <h3>Project created by <strong>Team 3</strong> at UofA Bootcamp &copy; 2022</h3>
-    </div>
-</footer>
-<!-- </div> -->
-
-  <div class="ui modal" id="trailer-modal">
-    <i class="close icon" id="trailer-close"></i>
-    <div class="header" id="trailer-title">
-    </div>
-    <div class="image content">
-      <div class="ui medium image">
-        <iframe id="video-player" width="500" height="315" title="YouTube video player" frameborder="0"
-          allow="accelerometer; autoplay;clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
       </div>
-      <div class="description" style="margin-left:250px" id="trailer-description">
+    </footer>
+    <!-- </div> -->
+
+    <div class="ui modal" id="trailer-modal">
+      <i class="close icon" id="trailer-close"></i>
+      <div class="header" id="trailer-title">
       </div>
-    </div>
-  </div>
-
-  <!-- Modal for movie details -->
-  <div class="ui large modal" id="movie-modal">
-    <i class="close icon" id="movie-modal-close"></i>
-    <div class="header" id="movie-modal-title">
-    </div>
-    <div class="sixteen wide mobile eight wide tablet eight wide computer center aligned column">
-      <div class="ui scrolling content">
-        <div id="movie-modal-description" class="ui doubling cards"></div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Modal for movie details -->
-  <div class="ui mini modal" id="schedule-modal">
-    <i class="close icon" id="schedule-modal-close"></i>
-    <div class="header" id="schedule-modal-title">
-    </div>
-    <!-- Add date selector -->
-    <!-- Add movie <img> -->
-    <div class="ui form">
-      <div class="field">
-        <label for="schedule-date">Date</label>
-        <input type="datetime-local" id="schedule-date" name="date">
-        </input>
-        <!-- Add time selector -->
-        <!-- // Add button to save schedule -->
-      </div>
-      <div class="ui">
-        <div class="ui  segment">
-          <img id="schedule-modal-img" class="ui image centered medium" src="" alt="movie poster">
-
+      <div class="image content">
+        <div class="ui medium image">
+          <iframe id="video-player" width="500" height="315" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay;clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
         </div>
-        <div class="ui container center aligned">
-          <button class="ui blue button" id="saveScheduleBtn">
-            <i class="calendar check link icon"></i>Add to Calendar
-          </button>
+        <div class="description" style="margin-left:250px" id="trailer-description">
         </div>
       </div>
     </div>
-    <!-- Loader modal -->
-    <div class="ui basic modal" id="loader-modal">
-      <i class="close icon" id="loader-modal-close"></i>
-      <div class="header" id="loader-modal-title">
+
+    <!-- Modal for movie details -->
+    <div class="ui large modal" id="movie-modal">
+      <i class="close icon" id="movie-modal-close"></i>
+      <div class="header" id="movie-modal-title">
+      </div>
+      <div class="sixteen wide mobile eight wide tablet eight wide computer center aligned column">
+        <div class="ui scrolling content">
+          <div id="movie-modal-description" class="ui doubling cards"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal for movie details -->
+    <div class="ui mini modal" id="schedule-modal">
+      <i class="close icon" id="schedule-modal-close"></i>
+      <div class="header" id="schedule-modal-title">
       </div>
       <!-- Add date selector -->
       <!-- Add movie <img> -->
+      <div class="ui form">
+        <div class="field">
+          <label for="schedule-date">Date</label>
+          <input type="datetime-local" id="schedule-date" name="date">
+          </input>
+          <!-- Add time selector -->
+          <!-- // Add button to save schedule -->
+        </div>
+        <div class="ui">
+          <div class="ui  segment">
+            <img id="schedule-modal-img" class="ui image centered medium" src="" alt="movie poster">
+
+          </div>
+          <div class="ui container center aligned">
+            <button class="ui blue button" id="saveScheduleBtn">
+              <i class="calendar check link icon"></i>Add to Calendar
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Loader modal -->
+      <div class="ui basic modal" id="loader-modal">
+        <i class="close icon" id="loader-modal-close"></i>
+        <div class="header" id="loader-modal-title">
+        </div>
+        <!-- Add date selector -->
+        <!-- Add movie <img> -->
         <div class="ui active dimmer">
           <div class="ui indeterminate text loader"></div>
         </div>
-    </div>
-
-    <!-- Modal widow for search Results -->
-    <div class="ui basic modal" id="resultsmodal">
-      <i class="close icon" id="results-close"></i>
-      <div class="header" id="results-title">
-        <h1>Search Results</h1>
       </div>
-      <!-- <div class="ui bottom attached tab active segment" data-tab="first"> -->
-      <div class="ui raised very padded container segment">
-        <div id="search-results" class="ui cards movie-cards"></div>
-      </div>
-      <!-- </div> -->
-    <!-- </div> -->
-  </div>
-  </main>
-  <!-- ✅ load jQuery ✅ -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <!-- Add moment.js to format date and time -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"
-    integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="./assets/js/movie.js"></script>
-  <script src="./assets/js/ui-elements.js"></script>
-  <script src="./assets/js/ui.js"></script>
-  <script src="./assets/js/fetch_api.js"></script>
-  <script>
-    $('.menu .item')
-      .tab()
-      ;
 
-      $('.rating').rating({
-      initialRating: 3,
-      maxRating: 5
-    })
-  ;
-  </script>
+      <!-- Modal widow for search Results -->
+      <div class="ui basic modal" id="resultsmodal">
+        <i class="close icon" id="results-close"></i>
+        <div class="header" id="results-title">
+          <h1>Search Results</h1>
+        </div>
+        <!-- <div class="ui bottom attached tab active segment" data-tab="first"> -->
+        <div class="ui raised very padded container segment">
+          <div id="search-results" class="ui cards movie-cards"></div>
+        </div>
+        <!-- </div> -->
+        <!-- </div> -->
+      </div>
+      </main>
+      <!-- ✅ load jQuery ✅ -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <!-- Add moment.js to format date and time -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.js"></script> -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"
+        integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="./assets/js/movie.js"></script>
+      <script src="./assets/js/ui-elements.js"></script>
+      <script src="./assets/js/ui.js"></script>
+      <script src="./assets/js/fetch_api.js"></script>
 </body>
 
 </html>
