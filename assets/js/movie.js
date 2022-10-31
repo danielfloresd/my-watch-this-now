@@ -73,7 +73,7 @@ class Movie {
         // Save movie to local storage
         localStorage.setItem(table, JSON.stringify(movies));
 
-        Movie.storeMoviesAtServer();
+        // Movie.storeMoviesAtServer();
     }
 
 
@@ -119,6 +119,7 @@ class Movie {
         localStorage.removeItem("archive");
     }
 
+    
     static loadMovie(id) {
         var movies = Movie.loadMovies();
      
@@ -135,7 +136,9 @@ class Movie {
         var movies = Movie.loadJSON("movies");
         var movieObjects = [];
         movies.forEach(function (movie) {
-            movieObjects.push(new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos));
+            var aMovie = new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos,movie.releaseDate);
+            aMovie.rating = movie.rating;
+            movieObjects.push(aMovie);  
         });
 
         return Movie.sort(movieObjects);
@@ -147,6 +150,7 @@ class Movie {
         movies.forEach(function (movie) {
             var aMovie = new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos);
             aMovie.archivedAt = movie.archivedAt;
+            aMovie.rating = movie.rating;
             movieObjects.push(aMovie);
         });
          return movieObjects;

@@ -8,8 +8,8 @@
         .tooltip {
             position: absolute;
             z-index: 9999;
-            background: #FFC107;
-            color: black;
+            background: #313c5d;
+            color: whitesmoke;
             width: 150px;
             border-radius: 3px;
             box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
@@ -132,6 +132,6 @@
             }
 
             footer{
-                display: none;
+                /* display: none; */
             }
         }

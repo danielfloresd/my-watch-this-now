@@ -35,23 +35,6 @@ function createMovieTextCard(movie) {
     return item;
 }
 
-function createMovieMiniCard2(movie) {
-    var item = $("<div>").addClass("card");
-    var image = $("<img>")
-        .addClass("ui tiny image right floated")
-        .attr("src", movie.poster)
-        .attr("alt", "Movie: " + movie.title)
-        .attr("data-title", movie.title)
-        .attr("data-content", movie.plot)
-    var a = $("<a>").attr("href", movie.link());
-    a.append(image);
-    var content = $("<div>").addClass("content");
-    var header = $("<p>").addClass("").text("⭐" + movie.title.substring(0, 30));
-
-    content.append(header);
-    item.append(a, header);
-    return item;
-}
 
 function createMovieMiniCard(movie) {
     var numChars = 50;
@@ -75,27 +58,6 @@ function createMovieMiniCard(movie) {
 }
 
 // Helper fuction to convert movie ranking to heart emoji list
-
-function createMovieTinyCard(movie) {
-
-    var movieCard = $("<div>").addClass("card movie-card-tiny");
-    var image = $("<img>").addClass("right floated tiny ui image").attr("src", movie.poster).attr("alt", "Movie poster: " + movie.title);
-    var a = $("<a>").attr("href", movie.link());
-    a.append(image);
-    var movieBody = $("<div>")
-        .addClass("header movie-card-tiny-body")
-
-    var movieTitle = $("<h4>")
-        .addClass("title movie-card-tiny-title")
-        .text(movie.title.substring(0, 30))
-
-    var plot = movie.plot ? movie.plot.substring(0, 50) : "No plot available";
-    var moviePlot = $("<p>")
-        .addClass("content")
-        .text(plot + "...");
-    movieCard.append(movieBody.append(a, movieTitle), moviePlot);
-    return movieCard;
-}
 
 // Create card buttons
 function createCardButtons(button1, action1, button2, action2, movie, button3, action3) {
@@ -136,7 +98,7 @@ function createLink(iconName, movie, actionmethod) {
 
         .on("click", function (event) {
             var newMovie = Movie.parse($(this).attr("data-movie"));
-            // console.log("Clicked-----",newMovie);
+            
             actionmethod(newMovie);
         });
     // <i class="cloud icon"></i>
@@ -153,7 +115,7 @@ function findProviders(movie) {
         var hasLinks = card.attr("data-has-links");
         if (!hasLinks) {
             var cardLinks = card.children(".movie-card-small-body");
-    
+
             createProviderLinks(cardLinks, movie);
         }
     }
@@ -221,6 +183,12 @@ function found(movie) {
     $("#resultsmodal").modal("show");
 }
 
+function notFound() {
+    // Hide loader
+    $("#loader-modal").modal("hide");
+    window.alert("No movies found");
+}
+
 // Add addToWatched function will add the movie to the watched list
 function setToBeWatched(movie) {
     movie.state = "to-be-watched";
@@ -276,19 +244,45 @@ function watching(movie) {
 function watched(movie) {
     var results = $("#watched");
     var card = createMovieTinyCard(movie);
-    var buttons = $("<div>");//.addClass("ui two buttons");
-    var button1 = createButton("archive", movie, archive);
 
-    button1.text("👎");
+    var rating = $("<div>")
+        .addClass("content")
+        .append($("<div>")
+            .addClass("ui star rating")
+            .attr("id", "rating-" + movie.id));
 
-    var button2 = createButton("heart", movie, archive);
-    button2.text("👍");
-    var rating = $("<div>").addClass("ui star rating").attr("data-rating", 0).attr("data-max-rating", "5");
-    var buttons = createCardButtons("thumbs up outine", archive, "thumbs down outline", archive, movie, "star", archive);
-    card.append(rating);
+    var cardTitle = card.find(".movie-card-tiny-title"); // Get card title
+    cardTitle.append(rating); // Add rating to card title
+    // card.append(rating);
+
+    var buttons = createCardButtons("archive", archive, "thumbs down outine", thumbsDown, movie, "thumbs up outline", thumbsUp);
+   
     // buttons.append(button2, button1, rating);
     card.append(buttons);
     results.append(card);
+
+    $("#rating-" + movie.id).rating({
+        initialRating: movie.rating ? movie.rating : 0,
+        maxRating: 5,
+        onRate: function (value) {
+            movie.rating = value;
+            movie.store();
+        }
+    });
+    // initialRating: 1,
+    // maxRating: 5
+}
+
+function thumbsUp(movie) {
+    movie.rating = 5;
+    movie.store();
+    reloadMovies();
+}
+
+function thumbsDown(movie) {
+    movie.rating = 1;
+    movie.store();
+    reloadMovies();
 }
 
 // Function to watch trailer
@@ -307,7 +301,7 @@ function trailer(movie) {
 }
 
 function providers(movie) {
-    console.log("providers", movie);
+   
     $("#provider-modal-images").empty();
     for (var i = 0; i < movie.providers.length; i++) {
         $("#provider-modal-images")
@@ -331,8 +325,10 @@ function deleteMovie(movie) {
 }
 
 function archive(movie) {
-    movie.archive();
-    movie.remove();
+    var aMovie = Movie.loadMovie(movie.id);
+   
+    aMovie.archive();
+    aMovie.remove();
     reloadMovies();
 }
 
@@ -340,8 +336,6 @@ function archive(movie) {
 function ratings(movie) {
     movie.rating = 5;
     movie.store();
-
-    console.log("rating", movie);
     // reloadMovies();
 }
 
@@ -350,14 +344,13 @@ function badMovie(movie) {
 }
 
 function cast(movie) {
-    console.log("Searching for cast:", movie);
     searchCast(movie)
 }
 
 
 function findCast(movie) {
     $("#movie-modal-description").empty();
-    console.log("cast found:", movie);
+    
     var castNum = movie.cast.length > 20 ? 20 : movie.cast.length;
     for (var i = 0; i < castNum; i++) {
         var actor = movie.cast[i];
@@ -392,11 +385,9 @@ function scheduleMovie(movie) {
             id: movie.id,
             title: movie.title,
             start: dateTime,
-            description: movie.title + " " + dateTime
-            // url: movieUrl
+            description: movie.plot,
         };
 
-        console.log("movieEvent", movieEvent);
 
         // Store event in localStorage
         var events = JSON.parse(localStorage.getItem("events")) || [];
@@ -427,7 +418,7 @@ function reloadMovies() {
     $("#watched").empty();
     var movies = Movie.loadMovies();
     movies.forEach(function (movie) {
-        // console.log(movie);
+      
         if (movie.isToBeWatched()) {
             toBeWatched(movie);
         } else if (movie.isWatching()) {
@@ -443,7 +434,7 @@ function initUI() {
 
     $("#searchBtn").on("click", function (event) {
         var keyword = $("#keyword").val().trim();
-        console.log("click");
+       
         $("#search-results").empty();
         $("#loader-modal").modal("show");
 

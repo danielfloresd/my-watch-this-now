@@ -5,16 +5,19 @@ document.addEventListener('DOMContentLoaded', function () {
     var initialView = isMobile() ? 'listWeek' : 'dayGridMonth';
     calendar = new FullCalendar.Calendar(calendarEl, {
         eventDidMount: function (info) {
-            var tooltip = new Tooltip(info.el, {
-                title: info.event.extendedProps.description,
-                placement: 'top',
-                trigger: 'hover',
-                container: 'body'
-            });
+            if (!isMobile()) {
+                var tooltip = new Tooltip(info.el, {
+                    title: info.event.extendedProps.description,
+                    placement: 'top',
+                    trigger: 'hover',
+                    container: 'body'
+                });
+            }
         },
         eventClick: function (info) {
             var eventObj = info.event;
             var start = moment(eventObj.start).format('YYYY-MM-DD HH:mm');
+            console.log("eventClick", eventObj.id, start); // Print event id and date to console
             showMovie(eventObj.id, start); // Show movie details in modal window
         },
         initialDate: moment().format('YYYY-MM-DD'),
@@ -29,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
         editable: false, // enable draggable events
         // themeSystem: 'bootstrap',
         headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
         },
     });
 
@@ -50,7 +53,7 @@ function showMovie(id, start) {
     var movie = Movie.loadMovie(id);
 
     if (movie) {
-      
+
         $("#movie-modal-title")
             .attr("data-movie-id", movie.id)
             .attr("data-movie", movie.toString()) // Set movie id in modal window
@@ -71,7 +74,7 @@ function showMovie(id, start) {
 function getEvents() {
     // Load events from localStorage
     var events = JSON.parse(localStorage.getItem('events')) || [];
-  
+
     return events;
 }
 
@@ -98,9 +101,9 @@ function saveEvent(event) {
 function addEventListeners() {
 
     $("#save-movie-button").on("click", function () {
-console.log("save-movie-button");
+        console.log("save-movie-button");
         var movie = Movie.parse($("#movie-modal-title").attr("data-movie")); // Get movie id from modal window
-    
+
         // var movieId = $("#movie-modal").attr("data-movie-id"); // Get movie id from modal window
         // var movie = Movie.loadMovie(movieId);
         var date = $("#movie-date").val();

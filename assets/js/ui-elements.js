@@ -123,3 +123,24 @@ function createMovieSmallCard(movie) {
     movieCard.append(movieBody.append(a, movieTitle), movieExtraContent);
     return movieCard;
 }
+
+function createMovieTinyCard(movie) {
+
+    var movieCard = $("<div>").addClass("card movie-card-tiny");
+    var image = $("<img>").addClass("right floated tiny ui image").attr("src", movie.poster).attr("alt", "Movie poster: " + movie.title);
+    var a = $("<a>").attr("href", movie.link());
+    a.append(image);
+    var movieBody = $("<div>")
+        .addClass("header movie-card-tiny-body")
+
+    var movieTitle = $("<h3>")
+        .addClass("title movie-card-tiny-title")
+        .text(movie.title.substring(0, 30))
+
+    var plot = movie.plot ? movie.plot.substring(0, 150) : "No plot available";
+    var moviePlot = $("<p>")
+        // .addClass("content")
+        .text(plot + "...");
+    movieCard.append(movieBody.append(a, movieTitle), moviePlot);
+    return movieCard;
+}
