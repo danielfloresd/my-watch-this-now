@@ -112,6 +112,19 @@
             margin-right: 0;
         }
 
+        html {
+            position: relative;
+            min-height: 100%;
+            height: unset;
+          }
+          body {
+            background-color: #acaaa5;
+            padding-bottom: 14px;
+            margin-bottom: 60px;
+            -webkit-font-smoothing: antialiased;
+            -moz-font-smoothing: grayscale;
+          }
+          
         #movie-modal {
             max-height: 650px;
             width: 360px;
