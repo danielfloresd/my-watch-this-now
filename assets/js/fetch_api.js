@@ -178,17 +178,22 @@ function searchNowPlaying() {
 }
 
 function searchMovie(query, results) {
+    console.log("Searching for " + query);
     var queryURL = `${BASE_URL}/search/${TMDB_TYPE}?query=${query}&api_key=${API_KEY}&language=en-US&page=1&include_adult=false`;
     fetch(queryURL)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-
-            if (data.results.length > 0) {
-                for (var i = 0; i < data.results.length; i++) {
+            var aResults = data.results;
+            if (aResults.length > 0) {
+                
+                var movieLen = aResults.length;   
+                for (var i = 0; i < movieLen; i++) {
                     var result = data.results[i];
-                    var movie = new Movie(result.id, result.title, result.overview, IMAGE_URL + result.poster_path, result.vote_average, result.id, "toBeWatched");
+                    var movie = new Movie(result.id, result.title, result.overview, IMAGE_URL + result.poster_path, result.vote_average, result.id, "found");
+                    console.log("result",result);
+                    movie.release_date = result.release_date;
                     searchProvidersMovie(movie);
                     found(movie);
                 }

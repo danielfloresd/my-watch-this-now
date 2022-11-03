@@ -1,7 +1,7 @@
 // Create Movie Class
 class Movie {
 
-    constructor(id, title, plot, poster, ranking, trailer, state,providers,providersLogos,releaseDate) {
+    constructor(id, title, plot, poster, ranking, trailer, state,providers,providersLogos) {
         this.id = id;
         this.title = title;
         this.plot = plot;
@@ -11,7 +11,6 @@ class Movie {
         this.state = state;
         this.providers = providers;
         this.providersLogos = providersLogos;
-        this.releaseDate = releaseDate;
     }
 
 
@@ -86,6 +85,7 @@ class Movie {
         var found = false;
         for (var i = 0; i < movies.length; i++) {
             if (movies[i].id === this.id) {
+             
                 movies[i] = this;
                 found = true;
                 break;
@@ -133,12 +133,14 @@ class Movie {
     // Add static methods to load movies from localStorge
     static loadJSON(table) {
         // Get existing movies from storage
-        var movies = JSON.parse(localStorage.getItem(table));
+        var json = localStorage.getItem(table);
+    
+        var aMovies = JSON.parse(json);
         // If no movies, create an array
-        if (!movies) {
-            movies = [];
+        if (!aMovies) {
+            aMovies = [];
         }
-        return movies;
+        return aMovies;
     }
 
     static clearArchive() {
@@ -159,8 +161,8 @@ class Movie {
     }
 
     static loadMovies() {
-        var movies = Movie.loadJSON("movies");
-        var movieObjects = Movie.load(movies);
+        var aMovies = Movie.loadJSON("movies");
+        var movieObjects = Movie.load(aMovies);
 
         return Movie.sort(movieObjects);
     }
@@ -180,6 +182,7 @@ class Movie {
             aMovie.social = movie.social;
             aMovie.providers = movie.providers;
             aMovie.providersLogos = movie.providersLogos;
+            aMovie.release_date = movie.release_date;
             movieObjects.push(aMovie);
         });
         return movieObjects;
@@ -188,7 +191,15 @@ class Movie {
     // Add static method to parse the movie object and return a new movie object
     static parse(movieJson) {
         var movie = JSON.parse(movieJson);
-        return new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos);
+        var newMovie = new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos);
+        newMovie.archivedAt = movie.archivedAt;
+        newMovie.rating = movie.rating;
+        newMovie.myNotes = movie.myNotes;
+        newMovie.social = movie.social;
+        newMovie.providers = movie.providers;
+        newMovie.providersLogos = movie.providersLogos;
+        newMovie.release_date = movie.release_date;
+        return newMovie;
     }
 
     static storeMoviesAtServer() {

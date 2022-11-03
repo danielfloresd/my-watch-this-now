@@ -78,10 +78,10 @@ function createLink(iconName, movie, actionmethod) {
     var button = $("<a>")
         .addClass("ui movie-link-a")
         // .text(iconName)
-        .attr("data-movie", movie.toString())
+        .attr("data-movie-id", movie.id)
 
         .on("click", function (event) {
-            var newMovie = Movie.parse($(this).attr("data-movie"));
+            var newMovie = Movie.loadMovie($(this).attr("data-movie-id"));
 
             actionmethod(newMovie);
         });
@@ -133,6 +133,7 @@ function notFound() {
 
 // Add addToWatched function will add the movie to the watched list
 function setToBeWatched(movie) {
+
     movie.state = "to-be-watched";
     movie.store();
     // findStreamingMovies(movie);

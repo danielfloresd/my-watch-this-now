@@ -67,7 +67,7 @@
     <a class="item active" data-tab="first-tab">To-Be-Watched</a>
   </div>
   <div class="ui bottom attached tab active segment" data-tab="first-tab">
-    <div class="ui scrolling cards movie-cards" id="to-be-watched"></div>
+    <div class="ui scrolling-x cards movie-cards" id="to-be-watched"></div>
   </div>
 <!-- End One -->
 <!-- Two -->
@@ -76,7 +76,7 @@
     <a class="item active" data-tab="first-tab">Watching</a>
   </div>
   <div class="ui bottom attached tab active segment" data-tab="first-tab">
-    <div class="ui scrolling cards movie-cards" id="watching"></div>
+    <div class="ui scrolling-x cards movie-cards" id="watching"></div>
   </div>
 <!-- End Two -->
 <!-- Three -->
@@ -86,7 +86,7 @@
   </div>
   <div class="ui bottom attached active tab segment" data-tab="third-tab">
     <!-- <p>My rating ⭐⭐⭐⭐⭐</p> -->
-    <div class="ui scrolling cards movie-cards" id="watched"></div>
+    <div class="ui scrolling-x cards movie-cards" id="watched"></div>
   </div>
 <!-- End Three -->
   
@@ -106,7 +106,7 @@
   <!-- </div> -->
   <div class="ui mini modal" id="comments-modal">
     <i class="close icon" id="comments-modal-close"></i>
-    <h3 class="ui dividing header" style="background-color:#d75788;color:aliceblue">Notes</h3>
+    <h3 class="ui dividing header">Notes</h3>
     <!-- <div class="sixteen wide mobile eight wide tablet eight wide computer center aligned column"> -->
     <!-- <div class="ui scrolling content"> -->
     <div class="ui comments" style="padding: 1rem;" id="my-comments">
@@ -195,7 +195,7 @@
     </div>
 
     <!-- Modal widow for search Results -->
-    <div class="ui basic modal" id="resultsmodal">
+    <div class="ui fullscreen modal" id="resultsmodal">
       <i class="close icon" id="results-close"></i>
       <div class="header" id="results-title">
         <h1>Search Results</h1>
@@ -204,7 +204,7 @@
       <div>
 
         <!-- </div> class="ui raised very padded container segment"> -->
-        <div id="search-results" class="ui cards movie-cards"></div>
+        <div id="search-results" class="ui cards movie-cards" style="overflow-y:hidden"></div>
       </div>
       <!-- </div> -->
       <!-- </div> -->
