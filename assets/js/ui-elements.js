@@ -226,7 +226,7 @@ function createMovieTinyCard(movie) {
     // Create card
     var movieCard = $("<div>")
         .addClass("card movie-card-tiny")
-        .attr("style", "width: 200px;");
+        .attr("style", "width: 170px;");
     // Create card image
     var image = $("<div>")
         .addClass("ui image")

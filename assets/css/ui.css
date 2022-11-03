@@ -159,8 +159,8 @@ h2 {
 
 /* Styling for movie-cards container */
 .movie-cards {
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
   /* overflow: auto; */
   /* max-height: 50vh; */
 }
@@ -227,15 +227,6 @@ footer {
   margin-bottom: 0;
 }
 
-.scrolling {
-  flex-wrap: nowrap !important;
-  overflow-x: scroll !important;
-  -webkit-overflow-scrolling: touch !important;
-  overflow-scrolling: touch !important;
-}
-.scrolling > .ui.card {
-  flex: 0 0 80% !important;
-}
 /* 
 @media only screen and (max-width: 767px) {
   .scrolling {
@@ -249,6 +240,17 @@ footer {
   }
 } */
 
+.scrolling {
+  flex-wrap: nowrap !important;
+  overflow-x: scroll !important;
+  -webkit-overflow-scrolling: touch !important;
+  overflow-scrolling: touch !important;
+  padding-left: 1px;
+
+}
+.scrolling > .ui.card {
+  flex: 0 0 60% !important;
+}
 
 @media (max-width: 819px) {
 
@@ -297,20 +299,11 @@ footer {
     margin-right: -10px;
   }
 
-  .navbar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 300px;
-    /* padding: 0.5rem; */
-    /* margin: 0.5rem; */
-  }
+
 
   header {
     font-size: larger;
   }
-
 
   div#now-playing-cards {
     padding-left: 1px;
@@ -346,8 +339,13 @@ footer {
   width: 100vh;
 }
 
+.movie-card {
+  padding: 1px;
+  margin: 1px;
+}
+
 .ui.image {
-  width: 500px;
+  /* width: 500px; */
 }
 
   #search-results {
