@@ -182,7 +182,7 @@ function watching(movie) {
     searchSocial(movie, cardLinks);
     searchProvidersMovie(movie, cardLinks);
 
-    card.children("extra-content").append(buttons);
+    card.append(buttons);
     results.append(card);
 
 }

@@ -140,7 +140,7 @@ function createMovieSmallCard2(movie) {
     var movieTitle = $("<h3>")
         .addClass("title movie-card-tiny-title")
         .text(movie.title.substring(0, 30))
-        .attr("style", "color: white; background-color:#313c5d;padding: 10px; margin: 0px;");
+        .attr("style", "color: white; background-color:#313c5d;padding: 10px; margin: 0px; height: 50px; overflow: hidden;");
     var movieExtraContent = $("<div>")
         .addClass("extra-content");
     var plot = movie.plot ? movie.plot.substring(0, 100) : "No plot available";
@@ -226,13 +226,13 @@ function createMovieTinyCard(movie) {
     // Create card
     var movieCard = $("<div>")
         .addClass("card movie-card-tiny")
-        .attr("style", "height:m 300px;");
+        .attr("style", "width: 200px;");
     // Create card image
     var image = $("<div>")
         .addClass("ui image")
         // .attr("src", movie.poster)
         .attr("alt", "Movie poster: " + movie.title)
-        .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 250px;");
+        .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 250px; width: 200px;");
 
     var a = $("<a>")
         .addClass("ui movie-link-a")
@@ -253,7 +253,7 @@ function createMovieTinyCard(movie) {
     var movieTitle = $("<h3>")
         .addClass("title movie-card-tiny-title")
         .text(movie.title.substring(0, 30))
-        .attr("style", "color: white; background-color:black;padding: 10px; margin: 0px;");
+        .attr("style", "color: white; background-color:black;padding: 10px; margin: 0px; height: 50px; overflow: hidden;");
     movieHeader.append(movieTitle);
 
     var cardMeta = $("<div>")

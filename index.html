@@ -61,28 +61,35 @@
       </div>
     </div>
   </div>
-  <div class="ui top attached secondary menu" style="background-color: whitesmoke;  justify-content: center;
-  align-items: center; ">
+<!-- One -->
+  <div class="ui top attached secondary menu"
+    style="background-color: whitesmoke;  justify-content: center; align-items: center; ">
     <a class="item active" data-tab="second-tab">To-Be-Watched</a>
-    <a class="item" data-tab="first-tab">Watching</a>
-    <!-- <a class="item " data-tab="first">Watching</a> -->
-    <a class="item" data-tab="third-tab">Watched</a>
-  </div>
-  <div class="ui bottom attached tab segment" data-tab="first-tab">
-    <!-- <h2>Watching</h2> -->
-    <div class="ui cards movie-cards" id="watching"></div>
   </div>
   <div class="ui bottom attached tab active segment" data-tab="second-tab">
-    <!-- <h2>To-Be-Watched</h2> -->
-    <div id="to-be-watched" class="ui cards movie-cards"></div>
+    <div id="to-be-watched" class="ui scrolling cards movie-cards"></div>
   </div>
-  <div class="ui bottom attached tab segment" data-tab="third-tab">
-    <!-- <h2>Watched</h2> -->
-    <p>My rating ⭐⭐⭐⭐⭐</p>
-    <div class="ui cards movie-cards" id="watched">
-    </div>
+<!-- End One -->
+<!-- Two -->
+  <div class="ui top attached secondary menu"
+    style="background-color: whitesmoke;  justify-content: center; align-items: center; ">
+    <a class="item active" data-tab="first-tab">Watching</a>
   </div>
+  <div class="ui bottom attached tab active segment" data-tab="first-tab">
+    <div class="ui scrolling cards movie-cards" id="watching"></div>
   </div>
+<!-- End Two -->
+<!-- Three -->
+  <div class="ui top attached secondary menu"
+    style="background-color: whitesmoke;  justify-content: center; align-items: center; ">
+    <a class="item active" data-tab="third-tab">Watched</a>
+  </div>
+  <div class="ui bottom attached active tab segment" data-tab="third-tab">
+    <!-- <p>My rating ⭐⭐⭐⭐⭐</p> -->
+    <div class="ui scrolling cards movie-cards" id="watched"></div>
+  </div>
+<!-- End Three -->
+  
   <!--added a footer-->
   <footer>
     <div class="ui container center aligned">
@@ -196,7 +203,7 @@
       <!-- <div class="ui bottom attached tab active segment" data-tab="first"> -->
       <div>
 
-      <!-- </div> class="ui raised very padded container segment"> -->
+        <!-- </div> class="ui raised very padded container segment"> -->
         <div id="search-results" class="ui cards movie-cards"></div>
       </div>
       <!-- </div> -->
