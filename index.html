@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon-16x16.png">
-  <link rel="manifest" href="./assets/images/site.webmanifest">
+  <!-- <link rel="manifest" href="./assets/images/site.webmanifest"> -->
   <!-- Link semantic-ui 2.5 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
 
@@ -33,20 +33,20 @@
     </div>
   </div>
   <div class="ui text menu" id="menu-bar-top">
-  <div class="item left">
-    <a href="./archive.html" alt="My Archiver" style="color: aliceblue;">
-      <i class="archive icon"></i>
-      My Archive
-    </a>
-    <a href="./calendar.html" alt="My Calendar" style="color: aliceblue;">
-      <i class="calendar icon"></i>
-      My Calendar
-    </a>
-    <a href="./now-playing.html" style="color: aliceblue;">
-      <i class="video camera icon" alt="Now Playing"></i>
-      Now Playing
-    </a>
-  </div>
+    <div class="item left">
+      <a href="./archive.html" alt="My Archiver" style="color: aliceblue;">
+        <i class="archive icon"></i>
+        My Archive
+      </a>
+      <a href="./calendar.html" alt="My Calendar" style="color: aliceblue;">
+        <i class="calendar icon"></i>
+        My Calendar
+      </a>
+      <a href="./now-playing.html" style="color: aliceblue;">
+        <i class="video camera icon" alt="Now Playing"></i>
+        Now Playing
+      </a>
+    </div>
   </div>
   <div class="ui text menu" id="menu-bar-top">
     <div class="item left">
@@ -63,9 +63,9 @@
   </div>
   <div class="ui top attached secondary menu" style="background-color: whitesmoke;  justify-content: center;
   align-items: center; ">
+    <a class="item active" data-tab="second-tab">To-Be-Watched</a>
     <a class="item" data-tab="first-tab">Watching</a>
     <!-- <a class="item " data-tab="first">Watching</a> -->
-    <a class="item active" data-tab="second-tab">To-Be-Watched</a>
     <a class="item" data-tab="third-tab">Watched</a>
   </div>
   <div class="ui bottom attached tab segment" data-tab="first-tab">
@@ -97,6 +97,27 @@
     </div>
   </footer>
   <!-- </div> -->
+  <div class="ui mini modal" id="comments-modal">
+    <i class="close icon" id="comments-modal-close"></i>
+    <h3 class="ui dividing header" style="background-color:#d75788;color:aliceblue">Notes</h3>
+    <!-- <div class="sixteen wide mobile eight wide tablet eight wide computer center aligned column"> -->
+    <!-- <div class="ui scrolling content"> -->
+    <div class="ui comments" style="padding: 1rem;" id="my-comments">
+    </div>
+    <!-- <form class="ui reply form"> -->
+    <div class="field">
+      <textarea id="comments-text" style="width:100%;height:100px" placeholder="Add your notes"></textarea>
+    </div>
+    <button class="ui blue labeled submit icon button" id="comments-button">
+      <i class="icon sticky note outline"></i> Add Note
+    </button>
+    <button class="ui blue labeled submit icon button" id="comments-clear-button">
+      <i class="icon trash"></i> Clear
+    </button>
+    <!-- </form> -->
+  </div>
+  </div>
+
 
   <div class="ui modal" id="trailer-modal">
     <i class="close icon" id="trailer-close"></i>
@@ -120,9 +141,9 @@
     <div class="header" id="movie-modal-title">
     </div>
     <!-- <div class="sixteen wide mobile eight wide tablet eight wide computer center aligned column"> -->
-      <!-- <div class="ui scrolling content"> -->
-        <div id="movie-modal-description" class="ui cards movie-cards"></div>
-      <!-- </div> -->
+    <!-- <div class="ui scrolling content"> -->
+    <div id="movie-modal-description" class="ui cards movie-cards"></div>
+    <!-- </div> -->
     <!-- </div> -->
   </div>
 
@@ -137,7 +158,7 @@
     <div class="ui form">
       <div class="field">
         <label for="schedule-date">Date</label>
-        <input type="datetime-local" id="schedule-date" name="date">
+        <input type="datetime-local" id="schedule-date" name="date" placeholder="Choose a date">
         </input>
         <!-- Add time selector -->
         <!-- // Add button to save schedule -->
@@ -173,7 +194,9 @@
         <h1>Search Results</h1>
       </div>
       <!-- <div class="ui bottom attached tab active segment" data-tab="first"> -->
-      <div class="ui raised very padded container segment">
+      <div>
+
+      <!-- </div> class="ui raised very padded container segment"> -->
         <div id="search-results" class="ui cards movie-cards"></div>
       </div>
       <!-- </div> -->
@@ -191,8 +214,13 @@
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./assets/js/movie.js"></script>
     <script src="./assets/js/ui-elements.js"></script>
-    <script src="./assets/js/ui.js"></script>
     <script src="./assets/js/fetch_api.js"></script>
+    <script src="./assets/js/ui.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('.ui.accordion').accordion();
+      });
+    </script>
 </body>
 
 </html>

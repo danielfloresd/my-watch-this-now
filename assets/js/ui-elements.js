@@ -18,30 +18,37 @@ function rankingIcon(ranking) {
             emojieCount = 0;
         }
     }
-    return rank + " " + ranking;
+    return rank + " " + Math.round(ranking*10) + "%";
 }
 // Create card buttons
-function createCardButtons(button1, action1, button2, action2, movie, button3, action3) {
-    var numBtns = button3 ? "three" : "two";
+function createCardButtons(button1, action1, button2, action2, movie, button3, action3,button4,action4) {
+    console.log("Creating card buttons " + button1 + " " + button2 + " " + button3 + " " + button4);
+    var numBtns = button4 ? "four" : button3? "three" : "two";
     var buttons = $("<div>")
+        .attr("style", "background-color:black;margin:0px;align-items:center;justify-content:center;display:flex;")
         // .addClass(`ui  ${numBtns} bottom attached buttons card-buttons`);
-        .addClass(`ui icon buttons card-buttons`);
+        // .addClass(`ui icon buttons card-buttons`);
     var button1 = createButton(button1, movie, action1);
     var button2 = createButton(button2, movie, action2);
-    if (button3) {
+    if (button4) {
         var button3 = createButton(button3, movie, action3);
-        var divider1 = $("<div>").addClass("or");
-        var divider2 = $("<div>").addClass("or");
+        var button4 = createButton(button4, movie, action4);
+     
+        buttons.append(button1, button2, button3,button4);
+    } else if (button3) {
+        var button3 = createButton(button3, movie, action3);
+   
         buttons.append(button1, button2, button3);
-    } else {
+    } 
+    else {
         var divider = $("<div>").addClass("or");
         buttons.append(button1, button2);
     }
     return buttons;
 }
 
-function getButtonAltText(iconName,movie) {
-    
+function getButtonAltText(iconName, movie) {
+
     if (iconName == "archive") {
         return "Archive";
     }
@@ -51,24 +58,24 @@ function getButtonAltText(iconName,movie) {
     else if (iconName == "trash") {
         return "Delete Movie";
     }
-    else if (iconName == "calendar plus" )
-    {
+    else if (iconName == "calendar plus") {
         return "Add to Calendar";
     } else if (iconName == "users") {
         return "Show Cast";
-    } 
-    else {
-        return  "Move " + movie.title + " to " + movie.nextState();
     }
-    return "Unknown";   
+    else {
+        return "Move " + movie.title + " to " + movie.nextState();
+    }
+    return "Unknown";
 }
 function createButton(iconName, movie, actionmethod) {
     var button = $("<button>")
-        .addClass("ui button")
+        .addClass("ui button icon")
         // .text(text)
         .attr("data-movie", movie.toString())
-        .attr("alt", getButtonAltText(iconName,movie))
-        .attr("title", getButtonAltText(iconName,movie))
+        .attr("alt", getButtonAltText(iconName, movie))
+        .attr("title", getButtonAltText(iconName, movie))
+        .attr("style", "background-color: black; color: white;")
         .on("click", function (event) {
             var newMovie = Movie.parse($(this).attr("data-movie"));
             //    Get event target element
@@ -115,7 +122,7 @@ function createLink(iconName, movie, actionmethod) {
     return button;
 }
 
-function createMovieSmallCard(movie) {
+function createMovieSmallCard2(movie) {
     var movieCard = $("<div>")
         .addClass("card movie-small-card");
     var image = $("<img>")
@@ -124,44 +131,286 @@ function createMovieSmallCard(movie) {
         .attr("alt", "Movie poster:" + movie.title);
     var a = $("<a>")
         .attr("href", movie.link());
-    a.append(image);
+    // a.append(image);
 
     var movieBody = $("<div>")
-        .addClass("eader movie-card-small-body");
-
+        .addClass("header movie-card-small-body")
+        .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 200px;");
+    a.append(movieBody);
     var movieTitle = $("<h3>")
-        .addClass("itle movie-card-small-title")
-        .text(movie.title);
+        .addClass("title movie-card-tiny-title")
+        .text(movie.title.substring(0, 30))
+        .attr("style", "color: white; background-color:#313c5d;padding: 10px; margin: 0px;");
     var movieExtraContent = $("<div>")
         .addClass("extra-content");
-    var plot = movie.plot ? movie.plot.substring(0, 200) : "No plot available";
+    var plot = movie.plot ? movie.plot.substring(0, 100) : "No plot available";
 
     var moviePlot = $("<p>").addClass("description movie-card-small-content").text(plot + "...");
+    moviePlot.append("<br>");
     var movieRanking = $("<p>")
         .text("TMDB: " + rankingIcon(movie.ranking));
     movieExtraContent.append(moviePlot, movieRanking);
 
-    movieCard.append(movieBody.append(a, movieTitle), movieExtraContent);
+    movieCard.append(a, movieTitle, moviePlot, movieExtraContent);
     return movieCard;
 }
 
+function createMovieSmallCard(movie) {
+
+    // Create card
+    var movieCard = $("<div>")
+        .addClass("card movie-card-tiny")
+        .attr("style", "height:m 300px;");
+    // Create card image
+    var image = $("<div>")
+        .addClass("ui image")
+        // .attr("src", movie.poster)
+        .attr("alt", "Movie poster: " + movie.title)
+        .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 450px;");
+
+    var a = $("<a>")
+        .addClass("ui movie-link-a")
+        .attr("href", movie.link());
+    a.append(image);
+
+    // Create card content
+    var cardContent = $("<div>")
+        .addClass("content movie-card-tiny-content")
+        .attr(`style`, `background-color: black; color: white;`);
+    // Create card header
+    var movieHeader = $("<div>")
+        .addClass("header movie-card-tiny-body")
+        // .attr("style", "background-color: rgba(0, 151, 19, 0.1)");
+        // .attr("style", "padding: 10px; margin: 0px; opacity: 0.1;")
+    // .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 200px;");
+    var movieImageIcons = $("<div>")
+        .addClass("sub header image-icons movie-card-tiny-image-icons")
+
+    image.prepend(movieImageIcons);
+    var movieTitle = $("<h2>")
+        .addClass("title movie-card-tiny-title")
+        .text(movie.title)
+        .attr("style", "height:55px;font-size:large;background-color:black;color:white;padding: 10px; margin: 0px; text-shadow: 0 0 3px #000000, 0 0 5px #000000;");
+    // movieHeader.append(movieTitle);
+    var cardMeta = $("<div>")
+        .addClass("meta movie-card-tiny-meta");
+
+    var movieRanking = $("<p>")
+        .text(rankingIcon(movie.ranking))
+        .attr("style", "color: white; background-color:black;padding: 0px; margin: 0px;");
+
+    cardMeta.append(movieRanking);
+    // notesLink.prepend(notesImage);
+
+    // movieSubHeader.append(notesLink);
+    var plot = movie.plot ? movie.plot.substring(0, 200) : "No plot available";
+    var movieDescription = $("<p>")
+        .addClass("description movie-card-tiny-content")
+        .attr("style", "color: white; padding: 1px; margin: 0px; height: 80px;")
+        .text(plot + "...");
+
+    cardMeta.append(movieDescription);
+    cardContent.append(cardMeta);
+
+
+    var movieExtraContent = $("<div>")
+        .addClass("extra-content");
+    
+    // Append card elements
+    movieCard.append(image,movieTitle,cardContent, movieExtraContent);
+
+    return movieCard;
+}
 function createMovieTinyCard(movie) {
 
-    var movieCard = $("<div>").addClass("card movie-card-tiny");
-    var image = $("<img>").addClass("right floated tiny ui image").attr("src", movie.poster).attr("alt", "Movie poster: " + movie.title);
-    var a = $("<a>").attr("href", movie.link());
-    a.append(image);
-    var movieBody = $("<div>")
-        .addClass("header movie-card-tiny-body")
+    // Create card
+    var movieCard = $("<div>")
+        .addClass("card movie-card-tiny")
+        .attr("style", "height:m 300px;");
+    // Create card image
+    var image = $("<div>")
+        .addClass("ui image")
+        // .attr("src", movie.poster)
+        .attr("alt", "Movie poster: " + movie.title)
+        .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 250px;");
 
+    var a = $("<a>")
+        .addClass("ui movie-link-a")
+        .attr("href", movie.link());
+    a.append(image);
+
+    // Create card content
+    var cardContent = $("<div>")
+        .addClass("content movie-card-tiny-content");
+    // Create card header
+    var movieHeader = $("<div>")
+        .addClass("header movie-card-tiny-body")
+    // .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 200px;");
+    var movieImageIcons = $("<div>")
+        .addClass("sub header image-icons movie-card-tiny-image-icons")
+
+    image.prepend(movieImageIcons);
     var movieTitle = $("<h3>")
         .addClass("title movie-card-tiny-title")
         .text(movie.title.substring(0, 30))
+        .attr("style", "color: white; background-color:black;padding: 10px; margin: 0px;");
+    movieHeader.append(movieTitle);
 
-    var plot = movie.plot ? movie.plot.substring(0, 150) : "No plot available";
-    var moviePlot = $("<p>")
-        // .addClass("content")
+    var cardMeta = $("<div>")
+        .addClass("meta movie-card-tiny-meta");
+
+
+    // notesLink.prepend(notesImage);
+
+    // movieSubHeader.append(notesLink);
+    var plot = movie.plot ? movie.plot.substring(0, 50) : "No plot available";
+    var movieDescription = $("<p>")
+        .addClass("description movie-card-tiny-content")
+        .attr("style", "color: black; padding: 5px; margin: 0px; height: 30px;")
         .text(plot + "...");
-    movieCard.append(movieBody.append(a, movieTitle), moviePlot);
+
+    // cardContent.append(cardMeta, movieDescription);
+    // cardContent.append(cardMeta);
+
+
+    var movieExtraContent = $("<div>")
+        .addClass("contentt")
+        .attr("style", "background-color: black; color: white;padding: 0px; margin: 0px;");
+    
+    // Append card elements
+    // movieCard.append(image, movieHeader, cardContent, movieExtraContent);
+    movieCard.append(image, movieHeader, movieExtraContent);
+
     return movieCard;
 }
+
+function showNotes(movie) {
+    // $("#my-comments").attr("style","background-image: url(" + movie.poster + "); background-size: cover; background-position: center;");
+
+    var movieNotes = movie.getNotes();
+    console.log("Loadin notes for", movie, movieNotes);
+    for (var i = 0; i < movieNotes.length; i++) {
+        var note = movieNotes[i];
+        var movieNote = createNote(note);
+        $("#my-comments").append(movieNote);
+    }
+
+    $("#comments-modal").modal("show");
+    $("#comments-button").on("click", function () {
+        var note = $("#comments-text").val();
+        console.log("Note", movie, note);
+        var aNote = movie.addNote(note);
+        // $("#comments-modal").modal("hide");
+        movie.store();
+        $("#comments-text").val("");
+        var movieNote = createNote(aNote);
+        $("#my-comments").append(movieNote);
+    });
+    $("#comments-clear-button").on("click", function () {
+        var note = $("#comments-text").val();
+        var aNote = movie.myNotes = [];
+        // $("#comments-modal").modal("hide");
+        movie.store();
+        $("#my-comments").empty();
+
+    });
+}
+
+function createNote(note) {
+
+    var comment = $("<div>")
+        .addClass("comment");
+    var avatar = $("<a>")
+        .addClass("avatar");
+    var avatarIcon = $("<i>")
+        .addClass("ui user icon");
+    avatar.append(avatarIcon);
+    var content = $("<div>")
+        .addClass("content");
+    var author = $("<a>")
+        .addClass("author")
+        .attr("style", "color:black")
+        .text("Me");
+    var metadata = $("<div>")
+        .addClass("metadata");
+    var date = $("<span>")
+        .addClass("date")
+        .text(note[0]);
+    metadata.append(note[0]);
+    var text = $("<div>")
+        .addClass("text")
+        .text(note[1]);
+    var actions = $("<div>")
+        .addClass("actions");
+    // var reply = $("<a>")
+    //     .addClass("reply")
+    //     .text("Reply");
+    // actions.append(reply);
+    content.append(author, metadata, text, actions);
+    comment.append(avatar, content);
+    return comment;
+}
+
+function findSocial(movie, cardLinks) {
+    // Add provider images to card
+    createSocialLinks(cardLinks, movie);
+
+}
+
+function createSocialLinks(cardLinks, movie) {
+
+    var socialKeys = movie.social ? Object.keys(movie.social) : [];
+    for (var i = 0; i < socialKeys.length; i++) {
+        var socialKey = socialKeys[i];
+        if (socialKey) {
+            var socialLink = movie.social[socialKey];
+            var socialLogo = SOCIAL_MEDIA_LOGOS[socialKey];
+            var socialLink = $("<a>")
+                .attr("href", socialLink)
+                .attr("target", "_blank")
+            var socialImage = $("<img>")
+                .addClass("ui avatar image movie-card-small-avatar")
+                .attr("src", socialLogo)
+                .attr("alt", i + " " + socialKey + " logo");
+            socialLink.append(socialImage);
+            cardLinks.prepend(socialLink);
+        }
+
+    }
+}
+
+function findProviders(movie, cardLinks) {
+    // Add provider images to card
+    console.log("Providers", movie, cardLinks);
+    createProviderLinks(cardLinks, movie);
+}
+
+
+function createProviderLinks(cardLinks, movie) {
+
+    var providerNum = movie.providers ? movie.providers.length : 0;
+    //Handle only 4 providers for now
+    if (providerNum > 3)
+        providerNum = 3;
+
+    for (var i = 0; i < providerNum; i++) {
+        var pr = movie.providers[i];
+        var providerLogo = movie.providersLogos[i];
+        var providerLink = $("<a>")
+            .attr("href", PROVIDERS_URL[pr])
+            .attr("target", "_blank")
+        var providerImage = $("<img>")
+            .addClass("ui avatar image movie-card-small-avatar")
+            .attr("src", providerLogo)
+            .attr("alt", i + " " + pr + " logo");
+        providerLink.append(providerImage);
+
+        // Add providerLink to the beggining of the cardLinks
+        if (!cardLinks)
+            console.log("No cardLinks", movie);
+        cardLinks.prepend(providerLink);
+    }
+
+}
+
+    // Add providerLink to the beggining of the cardLinks

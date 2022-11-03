@@ -27,6 +27,20 @@ class Movie {
         return this.state === "watching";
     }
 
+    addNote(note) {
+        var aNote = [moment().format("YYYY-MM-DD hh:mm A") ,note];
+        if (!this.myNotes) {
+            this.myNotes = [];
+        }
+        this.myNotes.push(aNote);
+        return aNote;
+    }
+
+    getNotes() {
+        return this.myNotes ? this.myNotes : [];
+    }
+
+
     nextState() {
         if (this.isToBeWatched()) {
             return "watching";
@@ -146,26 +160,29 @@ class Movie {
 
     static loadMovies() {
         var movies = Movie.loadJSON("movies");
-        var movieObjects = [];
-        movies.forEach(function (movie) {
-            var aMovie = new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos,movie.releaseDate);
-            aMovie.rating = movie.rating;
-            movieObjects.push(aMovie);  
-        });
+        var movieObjects = Movie.load(movies);
 
         return Movie.sort(movieObjects);
     }
 
     static loadArchive() {
         var movies = Movie.loadJSON("archive");
+        return Movie.load(movies);
+    }
+
+    static load(movies){
         var movieObjects = [];
         movies.forEach(function (movie) {
             var aMovie = new Movie(movie.id, movie.title, movie.plot, movie.poster, movie.ranking, movie.trailer, movie.state,movie.providers,movie.providersLogos);
             aMovie.archivedAt = movie.archivedAt;
             aMovie.rating = movie.rating;
+            aMovie.myNotes = movie.myNotes;
+            aMovie.social = movie.social;
+            aMovie.providers = movie.providers;
+            aMovie.providersLogos = movie.providersLogos;
             movieObjects.push(aMovie);
         });
-         return movieObjects;
+        return movieObjects;
     }
 
     // Add static method to parse the movie object and return a new movie object

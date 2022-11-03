@@ -40,7 +40,8 @@ function createArchiveCards(results) {
       
         var archivedAtLabel = $("<p>")
             .addClass("badge badge-secondary")
-            .text("🔵Watched at " + dateTime);
+            .attr("style", "position: absolute; top: 0; right: 0; margin: 5px;background-color: black; color: white; opacity: 0.7;")
+            .text("Watched at " + dateTime);
         // <div class="ui rating" data-max-rating="1"></div>
         var rating = $("<div>")
             .addClass("content")
@@ -68,6 +69,10 @@ function createArchiveCards(results) {
             //     movie.archive();
             // }
         });
+        var cardLinks = movieCard.children(".description");
+
+        searchSocial(movie, cardLinks);
+        searchProvidersMovie(movie,cardLinks);
     }
 
 }

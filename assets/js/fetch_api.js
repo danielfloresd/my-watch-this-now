@@ -97,6 +97,20 @@ PROVIDERS_MOVIES_URL = {
     "tru TV": "https://www.tru.tv/shows/"
 };
 
+var SOCIAL_MEDIA_LOGOS = {
+    "facebook": "https://upload.wikimedia.org/wikipedia/commons/4/44/Facebook_Logo.png",
+    "twitter": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Twitter_Logo.png",
+    "instagram": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/330px-Instagram_icon.png",
+    "youtube": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/330px-YouTube_full-color_icon_%282017%29.svg.png",
+    "imdb": "https://w7.pngwing.com/pngs/404/715/png-transparent-computer-icons-imdb-film-others-miscellaneous-label-text-thumbnail.png",
+    "rotten_tomatoes": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Rotten_Tomatoes.svg/330px-Rotten_Tomatoes.svg.png",
+    "metacritic": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Metacritic.svg/330px-Metacritic.svg.png",
+    "google_play": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/330px-Google_Play_Store_badge_EN.svg.png",
+    "itunes": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/ITunes_12.7_logo.svg/330px-ITunes_12.7_logo.svg.png",
+    "amazon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/330px-Amazon_logo.svg.png",
+}
+
+var STICKY_NOTE_LOGO = "https://i.pinimg.com/564x/93/4a/50/934a508559d128b63e9005b5cff0c3eb.jpg"
 // Function to keep track of search history
 function saveToHistory(query) {
     // Keep track of the search history
@@ -198,33 +212,57 @@ function searchProviders() {
         });
 }
 
-function searchProvidersMovie(movie) {
-
-    if (movie.providers) {
-        return;
-    }
+function searchProvidersMovie(movie, ui) {
 
 
-    var queryURL = `https://api.themoviedb.org/3/movie/${movie.id}/watch/providers?api_key=${API_KEY}`;
-    fetch(queryURL)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            // Will select only streaming providers
-            if (data.results.US && data.results.US.flatrate) {
+    if (!movie.providers) {
+        var queryURL = `https://api.themoviedb.org/3/movie/${movie.id}/watch/providers?api_key=${API_KEY}`;
+        fetch(queryURL)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                // Will select only streaming providers
+                if (data.results.US && data.results.US.flatrate) {
 
-                var providersNames = data.results.US.flatrate.map(provider => provider.provider_name);
-                var providersLogos = data.results.US.flatrate.map(provider => `${IMAGE_URL}${provider.logo_path}`);
+                    var providersNames = data.results.US.flatrate.map(provider => provider.provider_name);
+                    var providersLogos = data.results.US.flatrate.map(provider => `${IMAGE_URL}${provider.logo_path}`);
 
-                if (!movie.providers) {
-                    movie.providers = providersNames;
-                    movie.providersLogos = providersLogos;
-                    findProviders(movie);
+                    if (!movie.providers) {
+                        movie.providers = providersNames;
+                        movie.providersLogos = providersLogos;
+                    }
+                    movie.store();
+                    findProviders(movie, ui);
                 }
-                // movie.store();
-            }
-        });
+            });
+    } else {
+        findProviders(movie, ui);
+    }
+}
+
+function searchSocial(movie, ui) {
+    if (!movie.social) {
+        var queryURL = `https://api.themoviedb.org/3/movie/${movie.id}/external_ids?api_key=${API_KEY}`;
+        fetch(queryURL)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                // Will select only streaming providers
+
+                movie.social = {};
+                if (data.facebook_id) movie.social["facebook"] = "https://www.facebook.com/" + data.facebook_id;
+                if (data.twitter_id) movie.social["twitter"] = "https://twitter.com/" + data.twitter_id;
+                if (data.instagram_id) movie.social["instagram"] = "https://www.instagram.com/" + data.instagram_id;
+                if (data.imdb_id) movie.social["imdb"] = "https://www.imdb.com/title/" + data.imdb_id;
+
+                movie.store();
+                findSocial(movie, ui);
+            });
+    } else {
+        findSocial(movie, ui);
+    }
 }
 
 // https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US

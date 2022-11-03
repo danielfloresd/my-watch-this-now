@@ -57,22 +57,6 @@ function createMovieMiniCard(movie) {
     return movieCard;
 }
 
-// Helper fuction to convert movie ranking to heart emoji list
-
-// Create card buttons
-function createCardButtons(button1, action1, button2, action2, movie, button3, action3) {
-    var numBtns = button3 ? "three" : "two";
-    var buttons = $("<div>").addClass(`ui ${numBtns} bottom attached buttons card-buttons`);
-    var button1 = createButton(button1, movie, action1);
-    var button2 = createButton(button2, movie, action2);
-    if (button3) {
-        var button3 = createButton(button3, movie, action3);
-        buttons.append(button1, button2, button3);
-    } else {
-        buttons.append(button1, button2);
-    }
-    return buttons;
-}
 
 // Create card buttons
 function createCardLinks(button1, action1, button2, action2, movie, button3, action3) {
@@ -98,7 +82,7 @@ function createLink(iconName, movie, actionmethod) {
 
         .on("click", function (event) {
             var newMovie = Movie.parse($(this).attr("data-movie"));
-            
+
             actionmethod(newMovie);
         });
     // <i class="cloud icon"></i>
@@ -107,54 +91,6 @@ function createLink(iconName, movie, actionmethod) {
     return button;
 }
 
-function findProviders(movie) {
-    // Add provider images to card
-    var card = myfoundMoviesCards[movie.id];
-    if (card) {
-        // Get data attribute from card data-has-links
-        var hasLinks = card.attr("data-has-links");
-        if (!hasLinks) {
-            var cardLinks = card.children(".movie-card-small-body");
-
-            createProviderLinks(cardLinks, movie);
-        }
-    }
-
-    card = myToBeWatchedMoviesCards[movie.id];
-    if (card) {
-        card = myToBeWatchedMoviesCards[movie.id];
-        var hasLinks = card.attr("data-has-links");
-        if (!hasLinks) {
-            cardLinks = card.children(".movie-card-tiny-body");
-            createProviderLinks(cardLinks, movie);
-        }
-    }
-}
-
-function createProviderLinks(cardLinks, movie) {
-
-    var providerNum = movie.providers ? movie.providers.length : 0;
-    //Handle only 4 providers for now
-    if (providerNum > 3)
-        providerNum = 3;
-
-    for (var i = 0; i < providerNum; i++) {
-        var pr = movie.providers[i];
-        var providerLogo = movie.providersLogos[i];
-        var providerLink = $("<a>")
-            .attr("href", PROVIDERS_URL[pr])
-            .attr("target", "_blank")
-        var providerImage = $("<img>")
-            .addClass("ui avatar image movie-card-small-avatar")
-            .attr("src", providerLogo)
-            .attr("alt", i + " " + pr + " logo");
-        providerLink.append(providerImage);
-
-        // Add providerLink to the beggining of the cardLinks
-        cardLinks.prepend(providerLink);
-    }
-
-}
 
 function createActorCard(actor, character, actorImage) {
     var actorCard = $("<div>").addClass("ui card actor-card");
@@ -168,6 +104,8 @@ function createActorCard(actor, character, actorImage) {
     return actorCard;
 }
 
+
+
 function found(movie) {
     // Hide loader
 
@@ -179,6 +117,10 @@ function found(movie) {
     // card.append(buttons);
     myfoundMoviesCards[movie.id] = card;
     results.append(card);
+    var cardLinks = card.children(".description");
+
+    searchSocial(movie, cardLinks);
+    searchProvidersMovie(movie,cardLinks);
     $("#loader-modal").modal("hide");
     $("#resultsmodal").modal("show");
 }
@@ -214,11 +156,12 @@ function toBeWatched(movie) {
     var results = $("#to-be-watched");
 
     var card = createMovieTinyCard(movie);
-    var buttons = createCardButtons("eye", setWatching, "archive", deleteMovie, movie, "calendar plus", scheduleMovie);
-
+    var buttons = createCardButtons("eye", setWatching, "archive", deleteMovie, movie, "calendar plus", scheduleMovie,"sticky note",showNotes);
     myToBeWatchedMoviesCards[movie.id] = card;
     // Get card children by class name
-    searchProvidersMovie(movie);
+    var cardLinks = card.children(".image").children(".image-icons");   
+    searchSocial(movie, cardLinks);
+    searchProvidersMovie(movie, cardLinks);
 
     card.append(buttons);
     results.append(card);
@@ -233,9 +176,13 @@ function watching(movie) {
     var buttons = $("<div>");//.addClass("ui buttons");
     var watchedButton = createButton("check", movie, setWatched);
     var deleteButton = createButton("archive", movie, deleteMovie);
-    var buttons = createCardButtons("check", setWatched, "archive", deleteMovie, movie, "calendar plus", scheduleMovie);
+    var buttons = createCardButtons("check", setWatched, "archive", deleteMovie, movie, "calendar plus", scheduleMovie,"sticky note",showNotes);
     // buttons.append(watchedButton, deleteButton);
-    card.append(buttons);
+    var cardLinks = card.children(".image").children(".image-icons");   
+    searchSocial(movie, cardLinks);
+    searchProvidersMovie(movie, cardLinks);
+
+    card.children("extra-content").append(buttons);
     results.append(card);
 
 }
@@ -255,8 +202,8 @@ function watched(movie) {
     cardTitle.append(rating); // Add rating to card title
     // card.append(rating);
 
-    var buttons = createCardButtons("archive", archive, "thumbs down outine", thumbsDown, movie, "thumbs up outline", thumbsUp);
-   
+    var buttons = createCardButtons("archive", archive, "thumbs down outine", thumbsDown, movie, "thumbs up outline", thumbsUp, "sticky note", showNotes);
+
     // buttons.append(button2, button1, rating);
     card.append(buttons);
     results.append(card);
@@ -271,6 +218,9 @@ function watched(movie) {
     });
     // initialRating: 1,
     // maxRating: 5
+    var cardLinks = card.children(".image").children(".image-icons");   
+    searchSocial(movie, cardLinks);
+    searchProvidersMovie(movie, cardLinks);
 }
 
 function thumbsUp(movie) {
@@ -301,7 +251,7 @@ function trailer(movie) {
 }
 
 function providers(movie) {
-   
+
     $("#provider-modal-images").empty();
     for (var i = 0; i < movie.providers.length; i++) {
         $("#provider-modal-images")
@@ -326,7 +276,7 @@ function deleteMovie(movie) {
 
 function archive(movie) {
     var aMovie = Movie.loadMovie(movie.id);
-   
+
     aMovie.archive();
     aMovie.remove();
     reloadMovies();
@@ -350,7 +300,7 @@ function cast(movie) {
 
 function findCast(movie) {
     $("#movie-modal-description").empty();
-    
+
     var castNum = movie.cast.length > 20 ? 20 : movie.cast.length;
     for (var i = 0; i < castNum; i++) {
         var actor = movie.cast[i];
@@ -418,7 +368,7 @@ function reloadMovies() {
     $("#watched").empty();
     var movies = Movie.loadMovies();
     movies.forEach(function (movie) {
-      
+
         if (movie.isToBeWatched()) {
             toBeWatched(movie);
         } else if (movie.isWatching()) {
@@ -434,7 +384,7 @@ function initUI() {
 
     $("#searchBtn").on("click", function (event) {
         var keyword = $("#keyword").val().trim();
-       
+
         $("#search-results").empty();
         $("#loader-modal").modal("show");
 
@@ -443,11 +393,6 @@ function initUI() {
 
         var movies = searchMovie(keyword, $("#results"));
 
-        // setTimeout(function () {
-        //     $('.ui.modal').modal('refresh');
-        // }, 300);
-
-        // Comment end here to disable search results modal
     });
 
     $("#clearSearchBtn").on("click", function (event) {
@@ -473,14 +418,14 @@ function initUI() {
     });
 
     $('.menu .item')
-    .tab()
-    ;
+        .tab()
+        ;
 
     $('#my-rating')
         .rating({
             initialRating: 5,
             maxRating: 5
-    });
+        });
 
     // If the document is ready reload
 }
