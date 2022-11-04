@@ -192,7 +192,7 @@ function searchMovie(query, results) {
                 for (var i = 0; i < movieLen; i++) {
                     var result = data.results[i];
                     var movie = new Movie(result.id, result.title, result.overview, IMAGE_URL + result.poster_path, result.vote_average, result.id, "found");
-                    console.log("result",result);
+                   
                     movie.release_date = result.release_date;
                     searchProvidersMovie(movie);
                     found(movie);

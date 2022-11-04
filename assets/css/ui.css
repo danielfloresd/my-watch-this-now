@@ -27,6 +27,28 @@ body {
   margin-top: 0;
   margin-bottom: -10px;
   padding-right: 1rem;
+  /* margin-right: 1rem; */
+}
+
+#menu-bar-top a {
+  color: #fff;
+  /* text-decoration: underline; */
+  margin-right: 2px;
+}
+
+#to-be-watched-tab {
+  background-color: #d75788;
+  color: #fff;
+}
+
+#watching-tab {
+  background-color: #306ed8;
+  color: #fff;
+}
+
+#watched-tab {
+  background-color: #313c5d;
+  color: #fff;
 }
 
 #searchBtn {
@@ -51,6 +73,14 @@ h3{
 p {
   font-size: small;
   color: black;
+}
+
+#menu-bar-top {
+  padding-left: 1rem;
+}
+
+#keyword {
+  width: 60vw;
 }
 
 div#to-be-watched-cards {
@@ -222,8 +252,8 @@ footer {
   height: 40px;
   padding-top: 20px;
   padding-bottom: 20px;
-  /* color:#ffffff; */
-  /* background-color: #d75788; */
+  color:#ffffff;
+  background-color: #d75788;
   margin-top: 0;
   margin-bottom: 0;
 }
