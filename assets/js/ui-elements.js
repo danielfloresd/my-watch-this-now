@@ -8,7 +8,9 @@ function isMobile() {
     }
 }
 function rankingIcon(ranking) {
-    var heartEmojies = ["💛", "💙", "💚", "💜", "💜", "❤️", "❤️", "❤️", "❤️"];
+    if(!ranking) 
+        return "No ranking";
+    var heartEmojies = ["💛", "💙", "💙","💚", "💜", "💜", "💜", "❤️", "❤️", "❤️"];
     var emojieCount = 0;
     var rank = "";
     for (var i = 0; i < Math.round(ranking); i++) {
@@ -25,10 +27,9 @@ function createCardButtons(button1, action1, button2, action2, movie, button3, a
    
     var numBtns = button4 ? "four" : button3 ? "three" : "two";
     var buttons = $("<div>")
-        // .attr("style", "background-color:black;margin:0px;align-items:center;justify-content:center;display:flex;")
+
         .attr("style", "margin:0px;align-items:center;justify-content:center;display:flex;")
-    // .addClass(`ui  ${numBtns} bottom attached buttons card-buttons`);
-    // .addClass(`ui icon buttons card-buttons`);
+   
     var button1 = createButton(button1, movie, action1);
     var button2 = createButton(button2, movie, action2);
     if (button4) {
@@ -72,11 +73,10 @@ function getButtonAltText(iconName, movie) {
 function createButton(iconName, movie, actionmethod) {
     var button = $("<button>")
         .addClass("ui button icon")
-        // .text(text)
         .attr("data-movie-id", movie.id)
         .attr("alt", getButtonAltText(iconName, movie))
         .attr("title", getButtonAltText(iconName, movie))
-        // .attr("style", "background-color: black; color: white;")
+       
         .on("click", function (event) {
             var newMovie = Movie.loadMovie($(this).attr("data-movie-id"));
             //    Get event target element
@@ -115,10 +115,9 @@ function createLink(iconName, movie, actionmethod) {
 
         .on("click", function (event) {
             var newMovie = Movie.parse($(this).attr("data-movie"));
-            // console.log("Clicked-----",newMovie);
             actionmethod(newMovie);
         });
-    // <i class="cloud icon"></i>
+   
     var icon = $("<i>").addClass(iconName + " icon");
     button.append(icon);
     return button;
@@ -129,30 +128,25 @@ function createMovieSmallCard(movie) {
     // Create card
     var movieCard = $("<div>")
         .addClass("card movie-card-tiny")
-    // .attr("style", "margin:1px;");
-    // .attr("style", "height:m 300px;");
-    // Create card image
+   
     var image = $("<div>")
         .addClass("ui image")
-        // .attr("src", movie.poster)
         .attr("alt", "Movie poster: " + movie.title)
+        .attr("data-tooltip",rankingIcon(movie.ranking))
+        .attr("data-inverted", "")
+        .attr("data-position", "bottom center")
         .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 450px;");
 
     var a = $("<a>")
         .addClass("ui movie-link-a")
         .attr("href", movie.link());
+
     a.append(image);
 
     // Create card content
     var cardContent = $("<div>")
         .addClass("content movie-card-tiny-content")
-    // .attr(`style`, `background-color: black; color: white;`);
-    // Create card header
-    // var movieHeader = $("<div>")
-    //     .addClass("header movie-card-tiny-body")
-    // .attr("style", "background-color: rgba(0, 151, 19, 0.1)");
-    // .attr("style", "padding: 10px; margin: 0px; opacity: 0.1;")
-    // .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 200px;");
+   
     var movieImageIcons = $("<div>")
         .addClass("sub header image-icons movie-card-tiny-image-icons")
 
@@ -160,31 +154,24 @@ function createMovieSmallCard(movie) {
     var movieTitle = $("<h2>")
         .addClass("header movie-card-tiny-title")
         .text(movie.title)
-    // .attr("style", "height:55px;font-size:large;background-color:black;color:white;padding: 10px; margin: 0px; text-shadow: 0 0 3px #000000, 0 0 5px #000000;");
-    // .attr("style", "height:55px;font-size;padding: 10px; margin: 0px; text-shadow: 0 0 3px #000000, 0 0 5px #000000;");
-    // movieHeader.append(movieTitle);
+    
     a.append(movieTitle);
     var cardMeta = $("<div>")
         .addClass("sub header movie-card-tiny-meta");
 
     var movieRanking = $("<p>")
         .text(rankingIcon(movie.ranking))
-        // .attr("style", "color: white; background-color:black;padding: 0px; margin: 0px;");
         .attr("style", "padding: 0px; margin: 0px;");
-    // notesLink.prepend(notesImage);
-
-    // movieSubHeader.append(notesLink);
+  
     var plot = movie.plot ? movie.plot.substring(0, 200) : "No plot available";
     var movieDescription = $("<p>")
         .addClass("description movie-card-tiny-content")
-        // .attr("style", "color: white; padding: 1px; margin: 0px; height: 80px;")
         .attr("style", "padding: 1px; margin: 0px; height: 80px;")
         .text(plot + "...");
 
-    // cardMeta.append(movieDescription);
     cardContent.append(a);
     cardContent.append(cardMeta);
-    cardMeta.append(movieRanking);
+    // cardMeta.append(movieRanking);
     cardContent.append(movieDescription);
 
 
@@ -209,7 +196,6 @@ function createMovieTinyCard(movie) {
     // Create card image
     var image = $("<div>")
         .addClass("ui image")
-        // .attr("src", movie.poster)
         .attr("alt", "Movie poster: " + movie.title)
         .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 250px; width: 200px;");
 
@@ -225,7 +211,7 @@ function createMovieTinyCard(movie) {
     // Create card header
     var movieHeader = $("<div>")
         .addClass("header movie-card-tiny-body")
-    // .attr("style", "background-image: url(" + movie.poster + "); background-size: cover; background-position: center; height: 200px;");
+
     var movieImageIcons = $("<div>")
         .addClass("sub header image-icons movie-card-tiny-image-icons")
 
@@ -233,7 +219,6 @@ function createMovieTinyCard(movie) {
     var movieTitle = $("<h4>")
         .addClass("title movie-card-tiny-title")
         .text(movie.title)//.substring(0, 30))
-        // .attr("style", "color: white; background-color:black;padding: 10px; margin: 0px; height: 50px; overflow: hidden;");
         .attr("style", "padding: 0px; margin: 0px; height: 35x;");
     movieHeader.append(movieTitle);
 
@@ -251,19 +236,11 @@ function createMovieTinyCard(movie) {
     movieDescription.text(plot + "...");
     // Create movie description <p> element
 
-
-
-    // .attr("style", "color: black; padding: 5px; margin: 0px; height: 30px;")
-
-    // cardContent.append(cardMeta, movieDescription);
-    // cardContent.append(cardMeta);
-
     var releaseDate = $("<p>")
         .addClass("release-date")
         .text(moment(movie.release_date).format("YYYY"));
     var movieExtraContent = $("<div>")
         .addClass("extra-content")
-        // .attr("style", "background-color: black; color: white;padding: 0px; margin: 0px;");
         .attr("style", "padding: 0px; margin: 0px;")
     movieExtraContent.append(releaseDate);
 
@@ -271,14 +248,13 @@ function createMovieTinyCard(movie) {
     cardContent.append(cardMeta);
     cardContent.append(movieExtraContent);
     // Append card elements
-    // movieCard.append(image, movieHeader, cardContent, movieExtraContent);
+
     movieCard.append(image, movieHeader, cardContent);
 
     return movieCard;
 }
 
 function showNotes(movie) {
-    // $("#my-comments").attr("style","background-image: url(" + movie.poster + "); background-size: cover; background-position: center;");
 
     var movieNotes = movie.getNotes();
   
@@ -293,7 +269,7 @@ function showNotes(movie) {
         var note = $("#comments-text").val();
        
         var aNote = movie.addNote(note);
-        // $("#comments-modal").modal("hide");
+       
         movie.store();
         $("#comments-text").val("");
         var movieNote = createNote(aNote);
@@ -302,7 +278,7 @@ function showNotes(movie) {
     $("#comments-clear-button").on("click", function () {
         var note = $("#comments-text").val();
         var aNote = movie.myNotes = [];
-        // $("#comments-modal").modal("hide");
+      
         movie.store();
         $("#my-comments").empty();
 
@@ -335,10 +311,7 @@ function createNote(note) {
         .text(note[1]);
     var actions = $("<div>")
         .addClass("actions");
-    // var reply = $("<a>")
-    //     .addClass("reply")
-    //     .text("Reply");
-    // actions.append(reply);
+  
     content.append(author, metadata, text, actions);
     comment.append(avatar, content);
     return comment;
